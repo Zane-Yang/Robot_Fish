@@ -1,0 +1,8 @@
+prefix=/home/zane/robot_fish/devel
+
+Name: cabin_msgs
+Description: Description of cabin_msgs
+Version: 0.0.1
+Cflags: -I/home/zane/robot_fish/devel/include
+Libs: -L${prefix}/lib 
+Requires: message_runtime

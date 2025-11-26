@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <!-- 常量定义（避免缺失 pi/d2r） -->
+  <xacro:property name="pi" value="3.1415926535"/>
+  <xacro:property name="d2r" value="${pi/180.0}"/>
+
+  <xacro:macro name="thruster_macro" params="namespace thrusterID *origin">
+  <joint name="${namespace}/thruster_${thrusterID}_joint" type="fixed">
+    <xacro:insert_block name="origin"/>
+    <parent link="${namespace}/base_link"/>
+    <child link="${namespace}/thruster_${thrusterID}"/>
+  </joint>
+  <link name="${namespace}/thruster_${thrusterID}">
+    <inertial>
+      <mass value="0.01"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6"/>
+    </inertial>
+    <visual>
+      <geometry><cylinder length="0.05" radius="0.02"/></geometry>
+      <material name="black"><color rgba="0 0 0 1"/></material>
+    </visual>
+    <collision>
+      <geometry><cylinder length="0.05" radius="0.02"/></geometry>
+    </collision>
+  </link>
+  <gazebo>
+    <plugin name="${namespace}_thruster_${thrusterID}" filename="libuuv_thruster_ros_plugin.so">
+      <thrusterID>${thrusterID}</thrusterID>
+      <topicPrefix>${namespace}/thrusters/${thrusterID}</topicPrefix>
+      <link_name>${namespace}/thruster_${thrusterID}</link_name> <!-- 修复标签名 -->
+      <thrustMax>5.0</thrustMax>
+      <thrustMin>-5.0</thrustMin>
+      <dynamics>
+        <type>FirstOrder</type>
+        <timeConstant>0.05</timeConstant>
+      </dynamics>
+      <conversionFunction>
+        <type>Basic</type>
+        <rotorConstant>0.1</rotorConstant>
+      </conversionFunction>
+    </plugin>
+  </gazebo>
+</xacro:macro>
+
+<!-- 鳍宏（之前的配置不变，确保 params 包含 namespace） -->
+<xacro:macro name="fin_macro" params="namespace fin_id mesh_file *origin">
+  <xacro:property name="fin_min" value="${-0.5 * d2r}"/>
+  <xacro:property name="fin_max" value="${0.5 * d2r}"/>
+  <joint name="${namespace}/fin${fin_id}_joint" type="revolute">
+    <limit effort="10" lower="${fin_min}" upper="${fin_max}" velocity="5"/>
+    <xacro:insert_block name="origin"/>
+    <axis xyz="0 0 1"/>
+    <parent link="${namespace}/base_link"/>
+    <child link="${namespace}/fin${fin_id}"/>
+  </joint>
+  <link name="${namespace}/fin${fin_id}">
+    <inertial>
+      <mass value="0.001"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="1.7E-8" ixy="0" ixz="0" iyy="1.7E-8" iyz="0" izz="1.7E-8"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://robot_shark_description/meshes/${mesh_file}" scale="1 1 1"/>
+      </geometry>
+      <material name="blue"><color rgba="0 0 1 1"/></material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><box size="0.1 0.01 0.05"/></geometry>
+    </collision>
+  </link>
+  <gazebo>
+    <plugin name="${namespace}_fin${fin_id}_model" filename="libuuv_fin_ros_plugin.so">
+      <fin_id>${fin_id}</fin_id>
+      <dynamics>
+        <type>FirstOrder</type>
+        <timeConstant>0.05</timeConstant>
+      </dynamics>
+      <liftdrag>
+        <type>Quadratic</type>
+        <lift_constant>0.5</lift_constant>
+        <drag_constant>0.1</drag_constant>
+      </liftdrag>
+      <current_velocity_topic>/hydrodynamics/current_velocity</current_velocity_topic>
+      <link_name>${namespace}/fin${fin_id}</link_name>
+      <joint_name>${namespace}/fin${fin_id}_joint</joint_name>
+      <output_topic>${namespace}/fins/${fin_id}/output</output_topic>
+      <input_topic>${namespace}/fins/${fin_id}/input</input_topic>
+      <wrench_topic>${namespace}/fins/${fin_id}/wrench_topic</wrench_topic>
+    </plugin>
+  </gazebo>
+</xacro:macro>
+</robot>

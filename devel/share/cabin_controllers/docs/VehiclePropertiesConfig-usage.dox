@@ -1,0 +1,11 @@
+\subsubsection usage Usage
+\verbatim
+<node name="thruster_controller" pkg="cabin_controllers" type="thruster_controller">
+  <param name="Buoyant_Force" type="double" value="398.08" />
+  <param name="Buoyancy_X_POS" type="double" value="0.027" />
+  <param name="Buoyancy_Y_POS" type="double" value="0.008" />
+  <param name="Buoyancy_Z_POS" type="double" value="-0.036" />
+  <param name="IS_Submerged" type="bool" value="False" />
+</node>
+\endverbatim
+

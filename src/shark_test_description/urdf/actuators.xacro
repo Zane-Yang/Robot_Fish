@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <!-- Adding the fin units with the macro created in snippets.xacro -->
+    <!--
+    Important:
+        - The fin IDs must be given as integers and must be unique to each fin unit
+        - The fin pose in the <origin> block is relative to the parent link's origin
+    -->
+
+    <!-- 胸鳍（父连杆：base_link） -->
+    <xacro:fin_macro 
+        namespace="${namespace}" 
+        fin_id="0" 
+        parent_link="${namespace}/base_link" 
+        mesh_file="package://shark_test_description/meshes/body_fin.stl">
+        <origin xyz="0.0 0 0" rpy="0 0 0" />  <!-- 胸鳍在base_link前方0.05米 -->
+    </xacro:fin_macro>
+
+    <!-- 尾鳍link1（父连杆：base_link） -->
+    <xacro:fin_macro 
+        namespace="${namespace}" 
+        fin_id="1" 
+        parent_link="${namespace}/base_link" 
+        mesh_file="package://shark_test_description/meshes/link1.stl">
+        <origin xyz="0.169 0 0" rpy="0 0 0" />  <!-- link1在base_link后方0.169米 -->
+    </xacro:fin_macro>
+
+    <!-- 尾鳍link2（父连杆：fin1） -->
+    <xacro:fin_macro 
+        namespace="${namespace}" 
+        fin_id="2" 
+        parent_link="${namespace}/fin1" 
+        mesh_file="package://shark_test_description/meshes/link2.stl">
+        <origin xyz="0.062 0 0" rpy="0 0 0" />  <!-- link2在link1末端（x=0.062米） -->
+    </xacro:fin_macro>
+
+    <!-- 尾鳍link3（父连杆：fin2） -->
+    <xacro:fin_macro 
+        namespace="${namespace}" 
+        fin_id="3" 
+        parent_link="${namespace}/fin2" 
+        mesh_file="package://shark_test_description/meshes/link3.stl">
+        <origin xyz="0.062 0 0" rpy="0 0 0" />
+    </xacro:fin_macro>
+
+    <!-- 尾鳍link4（父连杆：fin3） -->
+    <xacro:fin_macro 
+        namespace="${namespace}" 
+        fin_id="4" 
+        parent_link="${namespace}/fin3" 
+        mesh_file="package://shark_test_description/meshes/link4.stl">
+        <origin xyz="0.064 0 0" rpy="0 0 0" />
+    </xacro:fin_macro>
+</robot>

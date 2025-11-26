@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:include filename="$(find robot_shark_description)/urdf/snippets.xacro"/>
+
+  <!-- 推进器配置（保持不变，之前已验证正常） -->
+  <xacro:thruster_macro namespace="${namespace}" thrusterID="0">
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </xacro:thruster_macro>
+
+  <!-- 鳍配置：合并左右胸鳍为一个，尾鳍用 link4.stl -->
+  <!-- 1. 合并胸鳍（fin_id=0，用 body_fin.stl） -->
+  <xacro:fin_macro namespace="${namespace}" fin_id="0" mesh_file="body_fin.stl">
+    <origin xyz="0.1 0 0" rpy="0 0 0"/> <!-- 胸鳍安装位置：鱼身中部下方（可按需调整 x/y/z） -->
+  </xacro:fin_macro>
+
+  <!-- 2. 尾鳍（fin_id=1，用 link4.stl） -->
+  <xacro:fin_macro namespace="${namespace}" fin_id="1" mesh_file="link4.stl">
+    <origin xyz="-0.2 0 0" rpy="0 0 0"/> <!-- 尾鳍安装位置：尾巴末端（可按需调整） -->
+  </xacro:fin_macro>
+
+</robot>

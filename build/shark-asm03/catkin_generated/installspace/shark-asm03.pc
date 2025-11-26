@@ -1,0 +1,8 @@
+prefix=/home/zane/robot_fish/install
+
+Name: shark_asm03
+Description: Description of shark_asm03
+Version: 1.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: roscpp rospy std_msgs trajectory_msgs controller_manager position_controllers hardware_interface robot_state_publisher urdf joint_state_publisher robot_state_publisher

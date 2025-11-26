@@ -1,0 +1,15 @@
+\subsubsection usage Usage
+\verbatim
+<node name="pid_tracking" pkg="cabin_behaviors" type="pid_tracking">
+  <param name="pid_p_mz" type="double" value="0.0" />
+  <param name="pid_i_mz" type="double" value="0.0" />
+  <param name="pid_d_mz" type="double" value="0.0" />
+  <param name="pid_p_z" type="double" value="0.0" />
+  <param name="pid_i_z" type="double" value="0.0" />
+  <param name="pid_d_z" type="double" value="0.0" />
+  <param name="safe_area_x" type="double" value="800.0" />
+  <param name="safe_area_y" type="double" value="600.0" />
+  <param name="tracking_switch" type="bool" value="False" />
+</node>
+\endverbatim
+

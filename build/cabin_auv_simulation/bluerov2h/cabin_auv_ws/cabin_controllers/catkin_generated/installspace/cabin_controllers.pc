@@ -1,0 +1,8 @@
+prefix=/home/zane/robot_fish/install
+
+Name: cabin_controllers
+Description: Description of cabin_controllers
+Version: 0.0.1
+Cflags: -I${prefix}/include -I/usr/include/eigen3 -I/usr/include
+Libs: -L${prefix}/lib 
+Requires: dynamic_reconfigure

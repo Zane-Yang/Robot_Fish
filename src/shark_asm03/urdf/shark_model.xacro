@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="shark_asm03">
+  
+  <!-- 定义可接受的参数 -->
+  <xacro:arg name="namespace" default="shark_asm03"/>
+  <xacro:arg name="inertial_reference_frame" default="world"/>
+  <xacro:arg name="debug" default="0"/>
+  
+  <!-- 包含你的原始URDF和Gazebo配置 -->
+  <xacro:include filename="$(find shark_asm03)/urdf/shark_asm03.urdf" />
+  <xacro:include filename="$(find shark_asm03)/urdf/shark_gazebo.xacro" />
+  
+  <!-- 如果需要，可以在这里添加更多配置 -->
+  
+</robot>

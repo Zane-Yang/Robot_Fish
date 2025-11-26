@@ -1,0 +1,46 @@
+<!-- 用于gazebo中启动shark-gazebo.urdf模型并且实现尾巴摆动,目前无效 -->
+<launch>
+  <param name="use_sim_time" value="true"/>
+
+  <!-- 1. 启动Gazebo -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch" />
+
+  <!-- 2. 加载URDF到参数服务器 -->
+  <param name="robot_description" textfile="$(find shark_asm03)/urdf/shark-gazebo.urdf" />
+
+       <!-- 3. 启动关节状态发布节点（发布joint_state话题） -->
+  <node name="joint_state_publisher_gui" pkg="joint_state_publisher_gui" type="joint_state_publisher_gui"/>
+
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
+    <param name="use_sim_time" value="true"/>
+  </node>
+
+
+  
+
+  <!-- 4. 将URDF模型spawn到Gazebo -->
+  <node name="spawn_model"
+        pkg="gazebo_ros"
+        type="spawn_model"
+        args="-file $(find shark_asm03)/urdf/shark-gazebo.urdf -urdf -model shark_asm03"
+        output="screen" />
+
+
+  <!-- 6. 启动controller_manager（管理控制器生命周期） -->
+  <node name="controller_manager" pkg="controller_manager" type="spawner" args="joint1_position_controller joint2_position_controller joint3_position_controller joint4_position_controller" output="screen"/>
+
+  <!-- 7. 启动控制器加载器（加载尾巴关节控制器） -->
+  
+
+  <!-- 8. 其他辅助节点（静态TF、校准话题） -->
+  <node name="tf_footprint_base"
+        pkg="tf"
+        type="static_transform_publisher"
+        args="0 0 0 0 0 0 base_link base_footprint 40" />
+  <node name="fake_joint_calibration"
+        pkg="rostopic"
+        type="rostopic"
+        args="pub /calibrated std_msgs/Bool true" />
+
+  
+</launch>

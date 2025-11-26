@@ -1,0 +1,8 @@
+prefix=/home/zane/robot_fish/install
+
+Name: robot_shark_description
+Description: Description of robot_shark_description
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

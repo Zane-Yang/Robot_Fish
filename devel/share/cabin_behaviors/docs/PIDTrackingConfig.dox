@@ -1,0 +1,14 @@
+\subsubsection parameters ROS parameters
+
+Reads and maintains the following parameters on the ROS server
+
+- \b "~pid_p_mz" : \b [double] pid parment p in moment z direction min: -1.0, default: 0.0, max: 1.0
+- \b "~pid_i_mz" : \b [double] pid parment i in moment z direction min: -1.0, default: 0.0, max: 1.0
+- \b "~pid_d_mz" : \b [double] pid parment d in moment z direction min: -1.0, default: 0.0, max: 1.0
+- \b "~pid_p_z" : \b [double] pid parment p in  z direction min: -1.0, default: 0.0, max: 1.0
+- \b "~pid_i_z" : \b [double] pid parment i in  z direction min: -1.0, default: 0.0, max: 1.0
+- \b "~pid_d_z" : \b [double] pid parment d in  z direction min: -1.0, default: 0.0, max: 1.0
+- \b "~safe_area_x" : \b [double] safe area for the target min: 0.0, default: 800.0, max: 1920.0
+- \b "~safe_area_y" : \b [double] safe area for the target min: 0.0, default: 600.0, max: 1920.0
+- \b "~tracking_switch" : \b [bool] the switch of the tracking mode min: False, default: False, max: True
+

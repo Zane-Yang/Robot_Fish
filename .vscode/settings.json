@@ -1,0 +1,22 @@
+{
+    "files.associations": {
+        "string_view": "cpp",
+        "regex": "cpp",
+        "tuple": "cpp",
+        "ostream": "cpp",
+        "array": "cpp",
+        "hash_map": "cpp",
+        "hash_set": "cpp",
+        "bitset": "cpp",
+        "initializer_list": "cpp",
+        "ranges": "cpp",
+        "utility": "cpp",
+        "random": "cpp",
+        "any": "cpp",
+        "functional": "cpp",
+        "type_traits": "cpp",
+        "variant": "cpp",
+        "condition_variable": "cpp",
+        "new": "cpp"
+    }
+}

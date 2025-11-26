@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <!-- 浮力中心（与重心接近，略高于重心） -->
+  <xacro:property name="robot_shark_cob" value="0.038191 -0.0011682 0.029734"/>
+  <!-- 机器鱼体积（基于质量和海水密度估算：体积=质量/密度≈1.753/1028≈0.0017 m³） -->
+  <xacro:property name="robot_shark_volume" value="0.0017"/>
+  <!-- 机器鱼尺寸（基于连杆位置估算） -->
+  <xacro:property name="robot_shark_length" value="0.5"/> <!-- 长度（前后方向） -->
+  <xacro:property name="robot_shark_width"  value="0.15"/> <!-- 宽度（左右方向） -->
+  <xacro:property name="robot_shark_height" value="0.1"/> <!-- 高度（上下方向） -->
+
+  <xacro:macro name="robot_shark_hydro_model" params="namespace">
+    <link name="${namespace}/base_link">
+      <neutrally_buoyant>0</neutrally_buoyant> <!-- 0=非中性浮力，1=中性浮力 -->
+      <volume>${robot_shark_volume}</volume>
+      <box>
+        <width>${robot_shark_width}</width>
+        <length>${robot_shark_length}</length>
+        <height>${robot_shark_height}</height>
+      </box>
+      <center_of_buoyancy>${robot_shark_cob}</center_of_buoyancy>
+
+      <!-- 流体动力学模型（Fossen 模型，适合水下机器人） -->
+      <hydrodynamic_model>
+        <type>fossen</type>
+        <!-- 附加质量矩阵（基于机器鱼尺寸估算，可后续调试） -->
+        <added_mass>
+          0.1 0 0 0 0 0
+          0 0.05 0 0 0 0
+          0 0 0.05 0 0 0
+          0 0 0 0.001 0 0
+          0 0 0 0 0.001 0
+          0 0 0 0 0 0.001
+        </added_mass>
+        <!-- 线性阻尼系数（阻碍运动，可根据仿真效果调整） -->
+        <linear_damping>
+          5 3 3 0.5 0.5 0.5
+        </linear_damping>
+        <!-- 二次阻尼系数（高速时阻尼增大） -->
+        <quadratic_damping>
+          10 8 8 1 1 1
+        </quadratic_damping>
+      </hydrodynamic_model>
+    </link>
+  </xacro:macro>
+</robot>

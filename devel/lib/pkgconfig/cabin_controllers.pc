@@ -1,0 +1,8 @@
+prefix=/home/zane/robot_fish/devel
+
+Name: cabin_controllers
+Description: Description of cabin_controllers
+Version: 0.0.1
+Cflags: -I/home/zane/robot_fish/devel/include -I/home/zane/robot_fish/src/cabin_auv_simulation/bluerov2h/cabin_auv_ws/cabin_controllers/include -I/usr/include/eigen3 -I/usr/include
+Libs: -L${prefix}/lib 
+Requires: dynamic_reconfigure

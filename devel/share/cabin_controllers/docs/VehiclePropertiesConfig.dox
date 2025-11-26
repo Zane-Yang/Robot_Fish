@@ -1,0 +1,10 @@
+\subsubsection parameters ROS parameters
+
+Reads and maintains the following parameters on the ROS server
+
+- \b "~Buoyant_Force" : \b [double] Force of Buoyancy min: 0.0, default: 398.08, max: 1000.0
+- \b "~Buoyancy_X_POS" : \b [double] Buoyancy X Pos. min: -0.5, default: 0.027, max: 0.5
+- \b "~Buoyancy_Y_POS" : \b [double] Buoyancy Y Pos. min: -0.5, default: 0.008, max: 0.5
+- \b "~Buoyancy_Z_POS" : \b [double] Buoyancy Z Pos. min: -0.5, default: -0.036, max: 0.5
+- \b "~IS_Submerged" : \b [bool] Whether is submerged min: False, default: False, max: True
+

@@ -1,0 +1,36 @@
+<package format="2">
+  <name>shark_asm03</name>
+  <version>1.0.0</version>
+  <description>
+    <p>URDF Description package for shark_asm03</p>
+    <p>This package contains configuration data, 3D models and launch files
+for shark_asm03 robot</p>
+  </description>
+  <author>TODO</author>
+  <maintainer email="TODO@email.com" />
+  <license>BSD</license>
+  <buildtool_depend>catkin</buildtool_depend>
+  <depend>roslaunch</depend>
+  <depend>robot_state_publisher</depend>
+  <depend>rviz</depend>
+  <depend>joint_state_publisher_gui</depend>
+  <depend>gazebo_ros</depend>
+  <depend>joint_state_publisher</depend>
+  <depend>gazebo_ros_control</depend>
+  <depend>gazebo_plugins</depend>
+
+  <depend>controller_manager</depend>          <!-- 控制器管理器 -->
+  <depend>position_controllers</depend>        <!-- 位置控制器（包含JointTrajectoryController） -->
+  <depend>hardware_interface</depend>          <!-- 硬件接口（与URDF的transmission匹配） -->
+  <depend>trajectory_msgs</depend>             <!-- 轨迹消息类型（Python节点发布的消息格式） -->
+  <!-- 新增：补充roscpp依赖（与CMakeLists.txt对应） -->
+  <depend>roscpp</depend>
+  <depend>std_msgs</depend>  <!-- 同时补充std_msgs，确保完整对应 -->
+  <depend>rospy</depend>  <!-- 补充rospy，确保Python节点正常运行 -->
+  <depend>urdf</depend>  <!-- 补充urdf，确保模型加载正常 -->
+
+  
+  <export>
+    <architecture_independent />
+  </export>
+</package>

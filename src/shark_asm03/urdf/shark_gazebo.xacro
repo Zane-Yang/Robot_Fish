@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<robot name="shark_gazebo" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  
+  <!-- UUV水下物体插件配置 -->
+  <xacro:macro name="underwater_object_plugin">
+    <gazebo>
+      <plugin name="underwater_object_plugin" filename="libuuv_underwater_object_ros_plugin.so">
+        <link_name>base_link</link_name>
+        <!-- 流体动力学参数 - 根据您的机器鱼实际参数调整 -->
+        <fluid_density>1028</fluid_density>  <!-- 海水密度 -->
+        <mass>1.753</mass>  <!-- 机器鱼质量 -->
+        <volume>0.002</volume>  <!-- 机器鱼体积 -->
+        <center_of_mass>0.038191 -0.0011682 0.019734</center_of_mass>  <!-- 重心位置 -->
+        <center_of_volume>0.038191 -0.0011682 0.019734</center_of_volume>  <!-- 浮力中心位置 -->
+        
+        <!-- 水动力学模型类型：Fossen或Sphere -->
+        <model>Fossen</model>
+        
+        <!-- 线性阻尼参数 -->
+        <linear_damping>10.0 10.0 15.0 0.0 0.0 0.0</linear_damping>
+        
+        <!-- 二次阻尼参数 -->
+        <quadratic_damping>1.0 1.0 1.5 0.0 0.0 0.0</quadratic_damping>
+        
+        <!-- 附加质量参数 -->
+        <added_mass>2.0 2.0 3.0 0.0 0.0 0.0</added_mass>
+      </plugin>
+    </gazebo>
+  </xacro:macro>
+  
+  <!-- 推进器配置模板 -->
+  <xacro:macro name="thruster_plugin" params="namespace thruster_id link_name pos_x pos_y pos_z rot_x rot_y rot_z">
+    <gazebo reference="${link_name}">
+      <plugin name="${namespace}/thruster_${thruster_id}" filename="libuuv_thruster_ros_plugin.so">
+        <namespace>${namespace}</namespace>
+        <thruster_id>${thruster_id}</thruster_id>
+        <link_name>${link_name}</link_name>
+        <pos>${pos_x} ${pos_y} ${pos_z}</pos>
+        <orientation>${rot_x} ${rot_y} ${rot_z} 0.0</orientation>
+        <!-- 推进器参数 -->
+        <max_thrust>50.0</max_thrust>
+        <gain>1.0</gain>
+        <dynamics>
+          <brutto_efficiency>0.8</brutto_efficiency>
+          <shaft_damping>0.01</shaft_damping>
+          <propeller_inertia>0.01</propeller_inertia>
+        </dynamics>
+      </plugin>
+    </gazebo>
+  </xacro:macro>
+  
+  <!-- 传感器配置示例 -->
+  <xacro:macro name="imu_sensor" params="namespace link_name">
+    <gazebo reference="${link_name}">
+      <plugin name="${namespace}/imu_sensor" filename="libuuv_sensor_ros_plugin_imu.so">
+        <namespace>${namespace}</namespace>
+        <sensor_topic>imu</sensor_topic>
+        <update_rate>50.0</update_rate>
+        <pose>0 0 0 0 0 0</pose>
+      </plugin>
+    </gazebo>
+  </xacro:macro>
+  
+  <!-- 调用宏来应用配置 -->
+  <xacro:underwater_object_plugin />
+  
+  <!-- 在这里添加推进器配置，根据您的机器鱼结构 -->
+  <!-- 例如：<xacro:thruster_plugin namespace="shark_asm03" thruster_id="0" link_name="base_link" pos_x="0.5" pos_y="0.2" pos_z="0.1" rot_x="0" rot_y="0" rot_z="0" /> -->
+  
+  <!-- 添加传感器配置 -->
+  <xacro:imu_sensor namespace="shark_asm03" link_name="base_link" />
+</robot>

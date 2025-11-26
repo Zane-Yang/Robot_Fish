@@ -1,0 +1,54 @@
+<launch>
+    <!-- 1. 启动ROS核心（无需手动启动rosout，roslaunch会自动启动roscore） -->
+    <!-- 注：删除单独的 <node name="roscore" ... />，roslaunch会自动处理 -->
+
+    <param name="use_sim_time" value="true"/>
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="paused" value="false"/>
+        <arg name="use_sim_time" value="true"/>
+        <arg name="gui" value="true"/>
+    </include>
+    <!-- 2. 加载URDF模型到参数服务器（必须放在最前面） -->
+    <param name="robot_description" textfile="$(find shark_asm03)/urdf/shark_asm03.urdf" />
+
+    <node 
+        name="gazebo_ros_control" 
+        pkg="gazebo_ros_control" 
+        type="gazebo_ros_control" 
+        respawn="true" /> 
+
+    <node name="spawn_urdf" 
+          pkg="gazebo_ros" 
+          type="spawn_model" 
+          args="-urdf -model shark_asm03 -param robot_description" 
+          output="screen" />
+
+    <!-- 3. 启动关节状态发布和机器人状态发布节点 -->
+    <node name="joint_state_publisher_gui" pkg="joint_state_publisher_gui" type="joint_state_publisher_gui" output="screen"/>
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+
+    <!-- 4. 启动RViz可视化 -->
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find shark_asm03)/urdf.rviz" output="screen">
+        <param name="use_sim_time" value="true" /> <!-- 关键：让RViz使用Gazebo的仿真时间 -->
+    </node>
+
+    <!-- 5. 加载控制器配置文件（必须在启动控制器之前） -->
+    <rosparam file="$(find shark_asm03)/config/tail_controller.yaml" command="load"/>
+
+    <node 
+    name="controller_manager" 
+    pkg="controller_manager" 
+    type="controller_manager" 
+    output="screen" />
+
+    <!-- 6. 关键修复：通过spawner启动控制器，同时会自动初始化controller_manager -->
+    <!-- spawner工具会自动启动controller_manager服务，无需单独启动 -->
+    <node name="controller_spawner" 
+          pkg="controller_manager" 
+          type="spawner" 
+          args="tail_joint_position_controller --shutdown-timeout 3"  
+          output="screen" />
+
+    <!-- 7. 启动尾巴波浪控制节点（确保控制器已启动） -->
+    <node name="tail_wave_node" pkg="shark_asm03" type="tail_wave_test.py" output="screen" />
+</launch>

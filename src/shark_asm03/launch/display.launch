@@ -1,0 +1,22 @@
+<!-- 这个是从solidworks里面导出的文件，在本地电脑运行时要推出虚拟环境 -->
+
+<launch>
+  <arg
+    name="model" />
+  <param
+    name="robot_description"
+    textfile="$(find shark_asm03)/urdf/shark_asm03.urdf" />
+  <node
+    name="joint_state_publisher_gui"
+    pkg="joint_state_publisher_gui"
+    type="joint_state_publisher_gui" />
+  <node
+    name="robot_state_publisher"
+    pkg="robot_state_publisher"
+    type="robot_state_publisher" />
+  <node
+    name="rviz"
+    pkg="rviz"
+    type="rviz"
+    args="-d $(find shark_asm03)/urdf.rviz" />
+</launch>

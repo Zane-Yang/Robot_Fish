@@ -1,0 +1,230 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <!-- 加载依赖的宏文件 -->
+  <xacro:include filename="$(find uuv_descriptions)/urdf/common.urdf.xacro"/>
+  <xacro:include filename="$(find uuv_sensor_ros_plugins)/urdf/sensor_snippets.xacro"/>
+  <xacro:include filename="$(find uuv_gazebo_ros_plugins)/urdf/snippets.xacro"/>
+  <xacro:include filename="$(find robot_shark_description)/urdf/snippets.xacro"/>
+
+  <!-- 机器鱼核心参数（从原有 URDF 提取） -->
+  <xacro:property name="mass" value="1.753"/> <!-- base_link 质量，总和可后续调整 -->
+  <xacro:property name="cog" value="0.038191 -0.0011682 0.019734"/> <!-- base_link 重心 -->
+  <xacro:property name="rho" value="1028"/> <!-- 海水密度，固定值 -->
+
+  <!-- 网格文件路径（对应复制后的 STL 文件） -->
+  <xacro:property name="base_link_mesh" value="package://robot_shark_description/meshes/base_link.STL"/>
+  <xacro:property name="body_fin_mesh" value="package://robot_shark_description/meshes/body_fin.STL"/>
+  <xacro:property name="link1_mesh" value="package://robot_shark_description/meshes/link1.STL"/>
+  <xacro:property name="link2_mesh" value="package://robot_shark_description/meshes/link2.STL"/>
+  <xacro:property name="link3_mesh" value="package://robot_shark_description/meshes/link3.STL"/>
+  <xacro:property name="link4_mesh" value="package://robot_shark_description/meshes/link4.STL"/>
+
+  <!-- 机器鱼宏定义（包含所有连杆、关节） -->
+  <xacro:macro name="robot_shark_base" params="namespace *gazebo">
+    <!-- 1. 基础连杆 base_link（复用原有惯性、可视化、碰撞） -->
+    <link name="${namespace}/base_link">
+      <inertial>
+        <mass value="1.753" />
+        <origin xyz="0.038191 -0.0011682 0.019734" rpy="0 0 0"/>
+        <inertia ixx="0.0011992" ixy="-5.9532E-07" ixz="-4.094E-05"
+                 iyy="0.0049871" iyz="-7.025E-07" izz="0.0055025" />
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="${base_link_mesh}" scale="1 1 1" />
+        </geometry>
+        <material name="white"><color rgba="1 1 1 1" /></material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="${base_link_mesh}" scale="1 1 1" />
+        </geometry>
+      </collision>
+    </link>
+
+    <!-- 2. 胸鳍连杆 body_fin -->
+    <link name="${namespace}/body_fin">
+      <inertial>
+        <mass value="0.0777166528344648" />
+        <origin xyz="0.00914833180910446 -0.00106620065635634 2.43483887424727E-05" rpy="0 0 0"/>
+        <inertia ixx="3.1049811920015E-05" ixy="-3.79774234954185E-10" ixz="-3.71777530984048E-08"
+                 iyy="1.59640204823738E-05" iyz="1.84244309068481E-07" izz="4.63071029422297E-05" />
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="${body_fin_mesh}" scale="1 1 1" />
+        </geometry>
+        <material name="light_gray"><color rgba="0.898 0.918 0.929 1" /></material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="${body_fin_mesh}" scale="1 1 1" />
+        </geometry>
+      </collision>
+    </link>
+    <!-- 胸鳍关节 body_fin_joint -->
+    <joint name="${namespace}/body_fin_joint" type="revolute">
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <parent link="${namespace}/base_link" />
+      <child link="${namespace}/body_fin" />
+      <axis xyz="0 1 0" />
+      <limit lower="-0.52" upper="0.52" effort="0" velocity="0" />
+    </joint>
+
+    <!-- 3. 尾鳍连杆 link1 -->
+    <link name="${namespace}/link1">
+      <inertial>
+        <mass value="0.276636032216536" />
+        <origin xyz="0.0273740098565554 1.00730841318137E-06 0.00233674443466103" rpy="0 0 0"/>
+        <inertia ixx="0.000221100847637612" ixy="2.2348802662522E-08" ixz="1.48015173973935E-06"
+                 iyy="0.000306819552826337" iyz="-1.51964922899048E-08" izz="0.000127523807633018" />
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="${link1_mesh}" scale="1 1 1" />
+        </geometry>
+        <material name="white"><color rgba="1 1 1 1" /></material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="${link1_mesh}" scale="1 1 1" />
+        </geometry>
+      </collision>
+    </link>
+    <!-- 尾鳍关节 joint1 -->
+    <joint name="${namespace}/joint1" type="revolute">
+      <origin xyz="0.16952 -0.001 0.022" rpy="0 0 0" />
+      <parent link="${namespace}/base_link" />
+      <child link="${namespace}/link1" />
+      <axis xyz="0 0 1" />
+      <limit lower="-0.54777" upper="0.54777" effort="5.0" velocity="2.0" />
+    </joint>
+
+    <!-- 4. 尾鳍连杆 link2 -->
+    <link name="${namespace}/link2">
+      <inertial>
+        <mass value="0.23079291425153" />
+        <origin xyz="0.0314265398767537 7.62073086331302E-06 0.00321188485864419" rpy="0 0 0"/>
+        <inertia ixx="0.00014162458840055" ixy="1.43555615633064E-07" ixz="6.00764632389094E-06"
+                 iyy="0.000192380669161936" iyz="7.81445755193396E-09" izz="0.000124286520292589" />
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="${link2_mesh}" scale="1 1 1" />
+        </geometry>
+        <material name="white"><color rgba="1 1 1 1" /></material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="${link2_mesh}" scale="1 1 1" />
+        </geometry>
+      </collision>
+    </link>
+    <!-- 尾鳍关节 joint2 -->
+    <joint name="${namespace}/joint2" type="revolute">
+      <origin xyz="0.06502 0 0" rpy="0 0 0" />
+      <parent link="${namespace}/link1" />
+      <child link="${namespace}/link2" />
+      <axis xyz="0 0 -1" />
+      <limit lower="-0.5242" upper="0.5242" effort="5.0" velocity="2.0" />
+    </joint>
+
+    <!-- 5. 尾鳍连杆 link3 -->
+    <link name="${namespace}/link3">
+      <inertial>
+        <mass value="0.194723948866163" />
+        <origin xyz="0.0326080633640175 0.000105371441976573 0.00539746824234997" rpy="0 0 0"/>
+        <inertia ixx="7.98162926930531E-05" ixy="-2.49207714784249E-07" ixz="4.9950223786246E-06"
+                 iyy="0.00012964160787792" iyz="7.02465415687571E-09" izz="9.38054135694122E-05" />
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="${link3_mesh}" scale="1 1 1" />
+        </geometry>
+        <material name="light_gray"><color rgba="0.898 0.918 0.929 1" /></material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="${link3_mesh}" scale="1 1 1" />
+        </geometry>
+      </collision>
+    </link>
+    <!-- 尾鳍关节 joint3 -->
+    <joint name="${namespace}/joint3" type="revolute">
+      <origin xyz="0.06402 0 0" rpy="0 0 0" />
+      <parent link="${namespace}/link2" />
+      <child link="${namespace}/link3" />
+      <axis xyz="0 0 1" />
+      <limit lower="-0.424" upper="0.424" effort="4.0" velocity="1.5" />
+    </joint>
+
+    <!-- 6. 尾鳍连杆 link4 -->
+    <!-- 尾巴连杆4（尾鳍，用 link4.stl） -->
+    <link name="${namespace}/link4">
+      <inertial>
+        <mass value="0.005"/> <!-- 尾鳍质量略大于其他尾柄连杆 -->
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <inertia ixx="5e-6" ixy="0" ixz="0" iyy="5e-6" iyz="0" izz="2e-6"/>
+      </inertial>
+      <!-- 可视化：替换为 link4.stl（和鳍宏的尾鳍区分开？或统一用一个？） -->
+      <!-- 注意：如果你的尾鳍是“尾巴最后一个连杆”，而非独立鳍，这里直接用 STL；如果是独立鳍，保持之前的鳍宏配置即可 -->
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://robot_shark_description/meshes/link4.STL" scale="1 1 1"/>
+        </geometry>
+        <material name="blue"><color rgba="0 0 1 1"/></material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry><box size="0.04 0.05 0.02"/></geometry> <!-- 碰撞简化，适配 STL 尺寸 -->
+      </collision>
+    </link>
+
+    <!-- 尾鳍关节 joint4 -->
+    <joint name="${namespace}/joint4" type="revolute">
+      <origin xyz="0.0668 0 0" rpy="0 0 0" />
+      <parent link="${namespace}/link3" />
+      <child link="${namespace}/link4" />
+      <axis xyz="0 0 -1" />
+      <limit lower="-0.265" upper="0.265" effort="2.0" velocity="1.0" />
+    </joint>
+
+    <!-- Gazebo 自碰撞设置 -->
+    <gazebo reference="${namespace}/base_link">
+      <selfCollide>false</selfCollide>
+    </gazebo>
+    <gazebo reference="${namespace}/body_fin">
+      <selfCollide>false</selfCollide>
+    </gazebo>
+    <gazebo reference="${namespace}/link1">
+      <selfCollide>false</selfCollide>
+    </gazebo>
+    <gazebo reference="${namespace}/link2">
+      <selfCollide>false</selfCollide>
+    </gazebo>
+    <gazebo reference="${namespace}/link3">
+      <selfCollide>false</selfCollide>
+    </gazebo>
+    <gazebo reference="${namespace}/link4">
+      <selfCollide>false</selfCollide>
+    </gazebo>
+
+    <!-- 插入流体动力学插件 -->
+    <xacro:insert_block name="gazebo"/>
+
+    <!-- 包含执行器（推进器、鳍）和传感器 -->
+    <xacro:include filename="$(find robot_shark_description)/urdf/actuators.xacro"/>
+    <xacro:include filename="$(find robot_shark_description)/urdf/sensors.xacro"/>
+  </xacro:macro>
+</robot>

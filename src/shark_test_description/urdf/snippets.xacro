@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- MACRO FOR FIN/RUDDER UNITS  -->
+  <!--
+    This macro can be used to add fins to the body of the vehicle, the fins
+    should be initialized in the actuators.xacro file. If you vehicle has no
+    fins, you can erase the macro below.
+  -->
+
+  <!-- Fin joint limits  -->
+  <xacro:property name="fin_min_joint_limit" value="${-0.5 * d2r}"/>  <!-- ±28.6度，约±0.5弧度 -->
+  <xacro:property name="fin_max_joint_limit" value="${0.5 * d2r}"/>
+
+  <!-- 宏参数说明：
+       - namespace: 机器人命名空间
+       - fin_id: 鳍的唯一ID
+       - parent_link: 父连杆（默认base_link）
+       - mesh_file: 鳍的网格文件路径（package://格式）
+       - *origin: 关节位置/姿态
+  -->
+  <xacro:macro name="fin_macro" params="namespace fin_id parent_link:=${namespace}/base_link mesh_file *origin">
+      <joint name="${namespace}/fin${fin_id}_joint" type="revolute">
+          <!-- 关节限制：effort和velocity设为非0值，否则关节无法运动 -->
+          <limit effort="50" lower="${fin_min_joint_limit}" upper="${fin_max_joint_limit}" velocity="10"/>
+          <xacro:insert_block name="origin"/>
+          <axis xyz="0 0 1"/>  <!-- 绕Z轴旋转（胸鳍左右摆/尾鳍上下摆） -->
+          <parent link="${parent_link}" />
+          <child link="${namespace}/fin${fin_id}" />
+      </joint>
+
+      <link name="${namespace}/fin${fin_id}">
+        <inertial>
+          <mass value="0.01" />  <!-- 增大质量，避免Gazebo中模型漂浮 -->
+          <origin xyz="0 0 0" rpy="0 0 0"/>
+          <inertia ixx="0.0001" ixy="0.0" ixz="0.0"
+                 iyy="0.0001" iyz="0.0"
+                 izz="0.0001" />  <!-- 增大转动惯量，提升物理稳定性 -->
+        </inertial>
+        <visual>
+          <origin xyz="0 0 0" rpy="0 0 0" />
+          <geometry>
+            <mesh filename="${mesh_file}" scale="1 1 1"/>  <!-- 直接使用传入的mesh_file参数 -->
+          </geometry>
+        </visual>
+        <!-- 新增碰撞模型，否则Gazebo中鳍无碰撞体积 -->
+        <collision>
+          <origin xyz="0 0 0" rpy="0 0 0" />
+          <geometry>
+            <mesh filename="${mesh_file}" scale="1 1 1"/>
+          </geometry>
+        </collision>
+      </link>
+
+      <gazebo>
+        <plugin name="${namespace}_fin${fin_id}_model" filename="libuuv_fin_ros_plugin.so">
+
+          <!-- 鳍关节动力学模型：一阶延迟，时间常数0.1秒 -->
+          <dynamics>
+            <type>FirstOrder</type>
+            <timeConstant>0.1</timeConstant>
+          </dynamics>
+
+          <!-- 选择二次升力/阻力模型（更适合仿生鱼鳍） -->
+          <liftdrag>
+            <type>Quadratic</type>
+            <lift_constant>10.0</lift_constant>  <!-- 升力系数，需根据鳍尺寸调整 -->
+            <drag_constant>5.0</drag_constant>    <!-- 阻力系数 -->
+          </liftdrag>
+
+          <!-- 水动力关键参数 -->
+          <current_velocity_topic>/hydrodynamics/current_velocity</current_velocity_topic>
+          <link_name>${namespace}/fin${fin_id}</link_name>
+          <joint_name>${namespace}/fin${fin_id}_joint</joint_name>
+
+          <!-- ROS话题配置 -->
+          <output_topic>${namespace}/fins/${fin_id}/output</output_topic>
+          <input_topic>${namespace}/fins/${fin_id}/input</input_topic>
+          <wrench_topic>${namespace}/fins/${fin_id}/wrench_topic</wrench_topic>
+        </plugin>
+
+        <!-- 新增流体阻力插件，模拟水对鳍的阻尼 -->
+        <plugin name="${namespace}_fin${fin_id}_hydrodynamics" filename="libuuv_hydrodynamic_plugin.so">
+          <link_name>${namespace}/fin${fin_id}</link_name>
+          <fluid_density>1000</fluid_density>
+          <added_mass>
+            <ixx>0.001</ixx>
+            <iyy>0.001</iyy>
+            <izz>0.001</izz>
+          </added_mass>
+          <linear_damping>
+            <x>1.0</x>
+            <y>1.0</y>
+            <z>1.0</z>
+          </linear_damping>
+        </plugin>
+      </gazebo>
+  </xacro:macro>
+
+</robot>

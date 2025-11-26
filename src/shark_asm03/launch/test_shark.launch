@@ -1,0 +1,20 @@
+<launch>
+  <!-- 使用基本的Gazebo空世界,用来测试这个机器鱼的urdf文件是否存在问题 -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="paused" value="false"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="gui" value="true"/>
+    <arg name="headless" value="false"/>
+    <arg name="debug" value="false"/>
+  </include>
+
+  <!-- 创建一个只包含URDF模型而不包含Gazebo插件的简化Xacro文件 -->
+  <param name="robot_description" command="cat $(find shark_asm03)/urdf/shark_asm03.urdf" />
+
+  <!-- 启动机器人状态发布器 -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+
+  <!-- 生成机器人模型在空地上 -->
+  <node name="spawn_model" pkg="gazebo_ros" type="spawn_model" output="screen"
+        args="-urdf -param robot_description -model shark_asm03 -x 0 -y 0 -z 1" />
+</launch>

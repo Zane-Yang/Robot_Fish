@@ -1,0 +1,8 @@
+prefix=/home/zane/robot_fish/devel
+
+Name: shark_test_description
+Description: Description of shark_test_description
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

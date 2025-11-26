@@ -1,0 +1,31 @@
+(cl:defpackage cabin_msgs-msg
+  (:use )
+  (:export
+   "<ATTITUDECOMMAND>"
+   "ATTITUDECOMMAND"
+   "<CONTROLSTATUS>"
+   "CONTROLSTATUS"
+   "<DEPTH>"
+   "DEPTH"
+   "<DEPTHCOMMAND>"
+   "DEPTHCOMMAND"
+   "<IMU>"
+   "IMU"
+   "<LINEARCOMMAND>"
+   "LINEARCOMMAND"
+   "<NETLOAD>"
+   "NETLOAD"
+   "<PWM>"
+   "PWM"
+   "<PWMSTAMPED>"
+   "PWMSTAMPED"
+   "<RESETCONTROLS>"
+   "RESETCONTROLS"
+   "<SWITCHSTATE>"
+   "SWITCHSTATE"
+   "<THRUST>"
+   "THRUST"
+   "<THRUSTSTAMPED>"
+   "THRUSTSTAMPED"
+  ))
+

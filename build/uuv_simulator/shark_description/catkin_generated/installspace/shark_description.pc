@@ -1,0 +1,8 @@
+prefix=/home/zane/robot_fish/install
+
+Name: shark_description
+Description: Description of shark_description
+Version: 0.1.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: roscpp rospy std_msgs urdf xacro robot_state_publisher gazebo_ros joint_state_publisher joint_state_publisher_gui shark_asm03
