@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- 简化的推进器宏 -->
+  <xacro:macro name="thruster_macro" params="robot_namespace thruster_id *origin">
+    <!-- 简单的推进器链接 -->
+    <link name="${robot_namespace}/thruster_${thruster_id}">
+      <inertial>
+        <mass value="0.001" />
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <inertia ixx="0.000000017" ixy="0.0" ixz="0.0"
+               iyy="0.000000017" iyz="0.0"
+               izz="0.000000017" />
+      </inertial>
+    </link>
+
+    <!-- 推进器关节 -->
+    <joint name="${robot_namespace}/thruster_${thruster_id}_joint" type="continuous">
+      <xacro:insert_block name="origin" />
+      <axis xyz="1 0 0" />
+      <parent link="${robot_namespace}/base_link" />
+      <child link="${robot_namespace}/thruster_${thruster_id}" />
+    </joint>
+  </xacro:macro>
+
+  <!-- 简化的鱼鳍宏 -->
+  <xacro:macro name="fin_macro" params="namespace fin_id *origin">
+    <joint name="${namespace}/fin${fin_id}_joint" type="revolute">
+      <limit effort="0" lower="0.0" upper="0.0" velocity="0"/>
+      <xacro:insert_block name="origin"/>
+      <axis xyz="0 0 1"/>
+      <parent link="${namespace}/base_link" />
+      <child link="${namespace}/fin${fin_id}" />
+    </joint>
+
+    <link name="${namespace}/fin${fin_id}">
+      <inertial>
+        <mass value="0.001" />
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <inertia ixx="0.000000017" ixy="0.0" ixz="0.0"
+               iyy="0.000000017" iyz="0.0"
+               izz="0.000000017" />
+      </inertial>
+    </link>
+  </xacro:macro>
+
+</robot>

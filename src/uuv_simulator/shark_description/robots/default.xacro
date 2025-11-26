@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<robot name="shark_asm03" xmlns:xacro="http://www.ros.org/wiki/xacro" >
+  <xacro:arg name="debug" default="0"/>
+  <xacro:arg name="namespace" default="shark_asm03"/>
+  <!-- 包含基本宏文件 -->
+  <xacro:include filename="$(find shark_description)/urdf/base.xacro"/>
+  <xacro:include filename="$(find shark_description)/urdf/gazebo.xacro"/>
+
+  <!-- 创建shark_asm03模型 -->
+  <xacro:shark_base namespace="$(arg namespace)">
+    <!-- 水下物体插件 -->
+    <gazebo>
+      <plugin name="uuv_plugin" filename="libuuv_underwater_object_ros_plugin.so">
+        <fluid_density>1028.0</fluid_density>
+        <flow_velocity_topic>hydrodynamics/current_velocity</flow_velocity_topic>
+        <debug>$(arg debug)</debug>
+        <!-- 添加水动力学和静水力参数 -->
+        <xacro:shark_hydro_model namespace="$(arg namespace)"/>
+      </plugin>
+    </gazebo>
+  </xacro:shark_base>
+
+  <!-- 关节状态发布器插件 -->
+  <xacro:default_joint_state_publisher namespace="$(arg namespace)" update_rate="10"/>
+
+</robot>

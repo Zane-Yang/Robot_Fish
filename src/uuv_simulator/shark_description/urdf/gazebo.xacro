@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <!-- 浮力中心 - 暂时设置为与重心相近 -->
+    <xacro:property name="shark_cob" value="0.038191 -0.0011682 0.019734"/>
+
+    <!-- 机器人体积估算 - 基于质量和密度 -->
+    <xacro:property name="shark_volume" value="0.00257"/>
+
+    <!-- 机器人尺寸估算 -->
+    <xacro:property name="shark_length" value="0.35"/>
+    <xacro:property name="shark_width"  value="0.15"/>
+    <xacro:property name="shark_height" value="0.10"/>
+
+    <xacro:macro name="shark_hydro_model" params="namespace">
+      <!-- 水动力学模型定义 -->
+      <link name="${namespace}/base_link">
+        <!-- 中性浮力标志 - 暂时设置为0，稍后可以调整 -->
+        <neutrally_buoyant>0</neutrally_buoyant>
+
+        <!-- 体积 -->
+        <volume>${shark_volume}</volume>
+
+        <!-- 边界框 -->
+        <box>
+          <width>${shark_width}</width>
+          <length>${shark_length}</length>
+          <height>${shark_height}</height>
+        </box>
+
+        <!-- 浮力中心 -->
+        <center_of_buoyancy>${shark_cob}</center_of_buoyancy>
+
+        <!-- 使用Fossen的水动力学模型 -->
+        <hydrodynamic_model>
+          <type>fossen</type>
+          <!-- 添加质量矩阵 - 初始值基于经验设置 -->
+          <added_mass>
+            0.5 0 0 0 0 0
+            0 1.0 0 0 0 0
+            0 0 1.0 0 0 0
+            0 0 0 0.1 0 0
+            0 0 0 0 0.1 0
+            0 0 0 0 0 0.1
+          </added_mass>
+          <!-- 线性阻尼系数 -->
+          <linear_damping>
+            10.0 15.0 15.0 2.0 2.0 2.0
+          </linear_damping>
+          <!-- 前向速度线性阻尼 -->
+          <linear_damping_forward_speed>
+            5.0 0 0 0 0 0
+          </linear_damping_forward_speed>
+          <!-- 二次阻尼系数 -->
+          <quadratic_damping>
+            20.0 30.0 30.0 5.0 5.0 5.0
+          </quadratic_damping>
+        </hydrodynamic_model>
+
+      </link>
+    </xacro:macro>
+
+</robot>

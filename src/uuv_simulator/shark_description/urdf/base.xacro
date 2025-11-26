@@ -1,0 +1,232 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <!-- Loading some constants -->
+  <xacro:include filename="$(find uuv_descriptions)/urdf/common.urdf.xacro"/>
+  <!-- Loading file with sensor macros -->
+  <xacro:include filename="$(find uuv_sensor_ros_plugins)/urdf/sensor_snippets.xacro"/>
+  <!-- Loading the UUV simulator ROS plugin macros -->
+  <xacro:include filename="$(find uuv_gazebo_ros_plugins)/urdf/snippets.xacro"/>
+  <!-- Loading vehicle's specific macros -->
+  <xacro:include filename="$(find shark_description)/urdf/snippets.xacro"/>
+
+  <!--
+    Vehicle's parameters from shark_asm03
+  -->
+
+  <!-- 总质量：base_link质量 + 其他所有连杆质量 -->
+  <xacro:property name="mass" value="2.64457"/>
+  <!-- 重心位置 (根据base_link的惯性原点) -->
+  <xacro:property name="cog" value="0.038191 -0.0011682 0.019734"/>
+  <!-- 流体密度 -->
+  <xacro:property name="rho" value="1028"/>
+
+  <!-- 视觉和碰撞网格文件路径 -->
+  <xacro:property name="visual_mesh_file" value="package://shark_asm03/meshes/base_link.STL"/>
+  <xacro:property name="collision_mesh_file" value="package://shark_asm03/meshes/base_link.STL"/>
+
+  <!-- Vehicle macro -->
+  <xacro:macro name="shark_base" params="namespace *gazebo">
+
+      <!-- 基本连杆定义 -->
+      <link name="${namespace}/base_link">
+        <!-- 从shark_asm03导入惯性参数 -->
+        <inertial>
+          <origin xyz="0.038191 -0.0011682 0.019734" rpy="0 0 0" />
+          <mass value="1.753" />
+          <inertia ixx="0.0011992" ixy="-5.9532E-07" ixz="-4.094E-05"
+                   iyy="0.0049871" iyz="-7.025E-07"
+                   izz="0.0055025" />
+        </inertial>
+
+        <visual>
+          <origin xyz="0 0 0" rpy="0 0 0"/>
+          <geometry>
+            <mesh filename="${visual_mesh_file}" scale="1 1 1" />
+          </geometry>
+        </visual>
+
+        <collision>
+          <origin xyz="0 0 0" rpy="0 0 0"/>
+          <geometry>
+            <mesh filename="${collision_mesh_file}" scale="1 1 1" />
+          </geometry>
+        </collision>
+      </link>
+
+      <!-- 从shark_asm03导入其他连杆和关节 -->
+      <!-- body_fin连杆 -->
+      <link name="${namespace}/body_fin">
+        <inertial>
+          <origin xyz="0.00914833180910446 -0.00106620065635634 2.43483887424727E-05" rpy="0 0 0" />
+          <mass value="0.0777166528344648" />
+          <inertia ixx="3.1049811920015E-05" ixy="-3.79774234954185E-10" ixz="-3.71777530984048E-08"
+                   iyy="1.59640204823738E-05" iyz="1.84244309068481E-07"
+                   izz="4.63071029422297E-05" />
+        </inertial>
+        <visual>
+          <origin xyz="0 0 0" rpy="0 0 0" />
+          <geometry>
+            <mesh filename="package://shark_asm03/meshes/body_fin.STL" />
+          </geometry>
+        </visual>
+        <collision>
+          <origin xyz="0 0 0" rpy="0 0 0" />
+          <geometry>
+            <mesh filename="package://shark_asm03/meshes/body_fin.STL" />
+          </geometry>
+        </collision>
+      </link>
+      
+      <!-- body_fin_joint关节 -->
+      <joint name="${namespace}/body_fin_joint" type="revolute">
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <parent link="${namespace}/base_link" />
+        <child link="${namespace}/body_fin" />
+        <axis xyz="0 1 0" />
+        <limit lower="-0.52" upper="0.52" effort="0" velocity="0" />
+      </joint>
+      
+      <!-- link1连杆 -->
+      <link name="${namespace}/link1">
+        <inertial>
+          <origin xyz="0.0273740098565554 1.00730841318137E-06 0.00233674443466103" rpy="0 0 0" />
+          <mass value="0.276636032216536" />
+          <inertia ixx="0.000221100847637612" ixy="2.2348802662522E-08" ixz="1.48015173973935E-06"
+                   iyy="0.000306819552826337" iyz="-1.51964922899048E-08"
+                   izz="0.000127523807633018" />
+        </inertial>
+        <visual>
+          <origin xyz="0 0 0" rpy="0 0 0" />
+          <geometry>
+            <mesh filename="package://shark_asm03/meshes/link1.STL" />
+          </geometry>
+        </visual>
+        <collision>
+          <origin xyz="0 0 0" rpy="0 0 0" />
+          <geometry>
+            <mesh filename="package://shark_asm03/meshes/link1.STL" />
+          </geometry>
+        </collision>
+      </link>
+      
+      <!-- joint1关节 -->
+      <joint name="${namespace}/joint1" type="revolute">
+        <origin xyz="0.16952 -0.001 0.022" rpy="0 0 0" />
+        <parent link="${namespace}/base_link" />
+        <child link="${namespace}/link1" />
+        <axis xyz="0 0 1" />
+        <limit lower="-0.54777" upper="0.54777" effort="5.0" velocity="2.0" />
+      </joint>
+      
+      <!-- link2连杆 -->
+      <link name="${namespace}/link2">
+        <inertial>
+          <origin xyz="0.0314265398767537 7.62073086331302E-06 0.00321188485864419" rpy="0 0 0" />
+          <mass value="0.23079291425153" />
+          <inertia ixx="0.00014162458840055" ixy="1.43555615633064E-07" ixz="6.00764632389094E-06"
+                   iyy="0.000192380669161936" iyz="7.81445755193396E-09"
+                   izz="0.000124286520292589" />
+        </inertial>
+        <visual>
+          <origin xyz="0 0 0" rpy="0 0 0" />
+          <geometry>
+            <mesh filename="package://shark_asm03/meshes/link2.STL" />
+          </geometry>
+        </visual>
+        <collision>
+          <origin xyz="0 0 0" rpy="0 0 0" />
+          <geometry>
+            <mesh filename="package://shark_asm03/meshes/link2.STL" />
+          </geometry>
+        </collision>
+      </link>
+      
+      <!-- joint2关节 -->
+      <joint name="${namespace}/joint2" type="revolute">
+        <origin xyz="0.06502 0 0" rpy="0 0 0" />
+        <parent link="${namespace}/link1" />
+        <child link="${namespace}/link2" />
+        <axis xyz="0 0 -1" />
+        <limit lower="-0.5242" upper="0.5242" effort="5.0" velocity="2.0" />
+      </joint>
+      
+      <!-- link3连杆 -->
+      <link name="${namespace}/link3">
+        <inertial>
+          <origin xyz="0.0326080633640175 0.000105371441976573 0.00539746824234997" rpy="0 0 0" />
+          <mass value="0.194723948866163" />
+          <inertia ixx="7.98162926930531E-05" ixy="-2.49207714784249E-07" ixz="4.9950223786246E-06"
+                   iyy="0.00012964160787792" iyz="7.02465415687571E-09"
+                   izz="9.38054135694122E-05" />
+        </inertial>
+        <visual>
+          <origin xyz="0 0 0" rpy="0 0 0" />
+          <geometry>
+            <mesh filename="package://shark_asm03/meshes/link3.STL" />
+          </geometry>
+        </visual>
+        <collision>
+          <origin xyz="0 0 0" rpy="0 0 0" />
+          <geometry>
+            <mesh filename="package://shark_asm03/meshes/link3.STL" />
+          </geometry>
+        </collision>
+      </link>
+      
+      <!-- joint3关节 -->
+      <joint name="${namespace}/joint3" type="revolute">
+        <origin xyz="0.06402 0 0" rpy="0 0 0" />
+        <parent link="${namespace}/link2" />
+        <child link="${namespace}/link3" />
+        <axis xyz="0 0 1" />
+        <limit lower="-0.424" upper="0.424" effort="4.0" velocity="1.5" />
+      </joint>
+      
+      <!-- link4连杆 -->
+      <link name="${namespace}/link4">
+        <inertial>
+          <origin xyz="0.0437179055651961 -6.72418090937084E-06 0.0104856415382952" rpy="0 0 0" />
+          <mass value="0.111699348341862" />
+          <inertia ixx="0.000186665766811727" ixy="1.66443330076751E-10" ixz="-3.18917008238277E-05"
+                   iyy="0.000232685091219534" iyz="-2.78353657152308E-08"
+                   izz="5.59758373965963E-05" />
+        </inertial>
+        <visual>
+          <origin xyz="0 0 0" rpy="0 0 0" />
+          <geometry>
+            <mesh filename="package://shark_asm03/meshes/link4.STL" />
+          </geometry>
+        </visual>
+        <collision>
+          <origin xyz="0 0 0" rpy="0 0 0" />
+          <geometry>
+            <mesh filename="package://shark_asm03/meshes/link4.STL" />
+          </geometry>
+        </collision>
+      </link>
+      
+      <!-- joint4关节 -->
+      <joint name="${namespace}/joint4" type="revolute">
+        <origin xyz="0.0668 0 0" rpy="0 0 0" />
+        <parent link="${namespace}/link3" />
+        <child link="${namespace}/link4" />
+        <axis xyz="0 0 -1" />
+        <limit lower="-0.265" upper="0.265" effort="2.0" velocity="1.0" />
+      </joint>
+
+    <gazebo reference="${namespace}/base_link">
+      <selfCollide>false</selfCollide>
+    </gazebo>
+
+    <!-- 设置水动力学插件 -->
+    <xacro:insert_block name="gazebo"/>
+
+    <!-- 暂时注释掉推进器和鱼鳍，因为我们使用shark_asm03自己的关节结构 -->
+    <!-- <xacro:include filename="$(find shark_description)/urdf/actuators.xacro"/> -->
+
+    <!-- 可以添加传感器模块 -->
+    <xacro:include filename="$(find shark_description)/urdf/sensors.xacro"/>
+
+  </xacro:macro>
+
+</robot>

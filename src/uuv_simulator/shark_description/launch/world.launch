@@ -1,0 +1,22 @@
+<launch>
+  <!-- 使用UUV海洋波浪世界 -->
+  <include file="$(find uuv_gazebo_worlds)/launch/ocean_waves.launch">
+    <!-- 注释掉不支持的参数 -->
+    <!-- <arg name="ocean_current" value="false" /> -->
+  </include>
+
+  <!-- 包含upload.launch来加载模型 -->
+  <include file="$(find shark_description)/launch/upload.launch">
+    <arg name="mode" value="default"/>
+    <arg name="namespace" value="shark_asm03"/>
+    <arg name="debug" value="0"/>
+    <!-- 设置初始位置在水面下 -->
+    <arg name="x" value="0"/>
+    <arg name="y" value="0"/>
+    <arg name="z" value="-1"/>
+    <arg name="roll" value="0"/>
+    <arg name="pitch" value="0"/>
+    <arg name="yaw" value="0"/>
+  </include>
+
+</launch>
