@@ -4042,19 +4042,6 @@ uuv_underwater_current_ros_plugin/fast:
 .PHONY : uuv_underwater_current_ros_plugin/fast
 
 #=============================================================================
-# Target rules for targets named shark_description_xacro_generated_to_devel_space_
-
-# Build rule for target.
-shark_description_xacro_generated_to_devel_space_: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 shark_description_xacro_generated_to_devel_space_
-.PHONY : shark_description_xacro_generated_to_devel_space_
-
-# fast build rule for target.
-shark_description_xacro_generated_to_devel_space_/fast:
-	$(MAKE) -f uuv_simulator/shark_description/CMakeFiles/shark_description_xacro_generated_to_devel_space_.dir/build.make uuv_simulator/shark_description/CMakeFiles/shark_description_xacro_generated_to_devel_space_.dir/build
-.PHONY : shark_description_xacro_generated_to_devel_space_/fast
-
-#=============================================================================
 # Target rules for targets named uuv_descriptions_xacro_generated_to_devel_space_
 
 # Build rule for target.
@@ -5522,7 +5509,6 @@ help:
 	@echo "... uuv_underwater_current_plugin"
 	@echo "... uuv_sc_ros_interface_plugin"
 	@echo "... uuv_underwater_current_ros_plugin"
-	@echo "... shark_description_xacro_generated_to_devel_space_"
 	@echo "... uuv_descriptions_xacro_generated_to_devel_space_"
 	@echo "... _run_tests_uuv_descriptions_rostest"
 	@echo "... run_tests_uuv_descriptions"

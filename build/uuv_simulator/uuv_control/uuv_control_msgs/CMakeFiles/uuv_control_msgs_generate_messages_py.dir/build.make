@@ -85,50 +85,50 @@ uuv_simulator/uuv_control/uuv_control_msgs/CMakeFiles/uuv_control_msgs_generate_
 
 /home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/msg/_Trajectory.py: /opt/ros/noetic/lib/genpy/genmsg_py.py
 /home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/msg/_Trajectory.py: /home/zane/robot_fish/src/uuv_simulator/uuv_control/uuv_control_msgs/msg/Trajectory.msg
-/home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/msg/_Trajectory.py: /opt/ros/noetic/share/std_msgs/msg/Header.msg
-/home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/msg/_Trajectory.py: /opt/ros/noetic/share/geometry_msgs/msg/Accel.msg
 /home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/msg/_Trajectory.py: /home/zane/robot_fish/src/uuv_simulator/uuv_control/uuv_control_msgs/msg/TrajectoryPoint.msg
+/home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/msg/_Trajectory.py: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
+/home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/msg/_Trajectory.py: /opt/ros/noetic/share/std_msgs/msg/Header.msg
+/home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/msg/_Trajectory.py: /opt/ros/noetic/share/geometry_msgs/msg/Vector3.msg
 /home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/msg/_Trajectory.py: /opt/ros/noetic/share/geometry_msgs/msg/Quaternion.msg
 /home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/msg/_Trajectory.py: /opt/ros/noetic/share/geometry_msgs/msg/Twist.msg
-/home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/msg/_Trajectory.py: /opt/ros/noetic/share/geometry_msgs/msg/Vector3.msg
+/home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/msg/_Trajectory.py: /opt/ros/noetic/share/geometry_msgs/msg/Accel.msg
 /home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/msg/_Trajectory.py: /opt/ros/noetic/share/geometry_msgs/msg/Pose.msg
-/home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/msg/_Trajectory.py: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/zane/robot_fish/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Python from MSG uuv_control_msgs/Trajectory"
 	cd /home/zane/robot_fish/build/uuv_simulator/uuv_control/uuv_control_msgs && ../../../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py /home/zane/robot_fish/src/uuv_simulator/uuv_control/uuv_control_msgs/msg/Trajectory.msg -Iuuv_control_msgs:/home/zane/robot_fish/src/uuv_simulator/uuv_control/uuv_control_msgs/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -p uuv_control_msgs -o /home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/msg
 
 /home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/msg/_TrajectoryPoint.py: /opt/ros/noetic/lib/genpy/genmsg_py.py
 /home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/msg/_TrajectoryPoint.py: /home/zane/robot_fish/src/uuv_simulator/uuv_control/uuv_control_msgs/msg/TrajectoryPoint.msg
+/home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/msg/_TrajectoryPoint.py: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
 /home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/msg/_TrajectoryPoint.py: /opt/ros/noetic/share/std_msgs/msg/Header.msg
-/home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/msg/_TrajectoryPoint.py: /opt/ros/noetic/share/geometry_msgs/msg/Accel.msg
+/home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/msg/_TrajectoryPoint.py: /opt/ros/noetic/share/geometry_msgs/msg/Vector3.msg
 /home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/msg/_TrajectoryPoint.py: /opt/ros/noetic/share/geometry_msgs/msg/Quaternion.msg
 /home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/msg/_TrajectoryPoint.py: /opt/ros/noetic/share/geometry_msgs/msg/Twist.msg
-/home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/msg/_TrajectoryPoint.py: /opt/ros/noetic/share/geometry_msgs/msg/Vector3.msg
+/home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/msg/_TrajectoryPoint.py: /opt/ros/noetic/share/geometry_msgs/msg/Accel.msg
 /home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/msg/_TrajectoryPoint.py: /opt/ros/noetic/share/geometry_msgs/msg/Pose.msg
-/home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/msg/_TrajectoryPoint.py: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/zane/robot_fish/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating Python from MSG uuv_control_msgs/TrajectoryPoint"
 	cd /home/zane/robot_fish/build/uuv_simulator/uuv_control/uuv_control_msgs && ../../../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py /home/zane/robot_fish/src/uuv_simulator/uuv_control/uuv_control_msgs/msg/TrajectoryPoint.msg -Iuuv_control_msgs:/home/zane/robot_fish/src/uuv_simulator/uuv_control/uuv_control_msgs/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -p uuv_control_msgs -o /home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/msg
 
 /home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/msg/_Waypoint.py: /opt/ros/noetic/lib/genpy/genmsg_py.py
 /home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/msg/_Waypoint.py: /home/zane/robot_fish/src/uuv_simulator/uuv_control/uuv_control_msgs/msg/Waypoint.msg
-/home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/msg/_Waypoint.py: /opt/ros/noetic/share/std_msgs/msg/Header.msg
 /home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/msg/_Waypoint.py: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
+/home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/msg/_Waypoint.py: /opt/ros/noetic/share/std_msgs/msg/Header.msg
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/zane/robot_fish/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating Python from MSG uuv_control_msgs/Waypoint"
 	cd /home/zane/robot_fish/build/uuv_simulator/uuv_control/uuv_control_msgs && ../../../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py /home/zane/robot_fish/src/uuv_simulator/uuv_control/uuv_control_msgs/msg/Waypoint.msg -Iuuv_control_msgs:/home/zane/robot_fish/src/uuv_simulator/uuv_control/uuv_control_msgs/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -p uuv_control_msgs -o /home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/msg
 
 /home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/msg/_WaypointSet.py: /opt/ros/noetic/lib/genpy/genmsg_py.py
 /home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/msg/_WaypointSet.py: /home/zane/robot_fish/src/uuv_simulator/uuv_control/uuv_control_msgs/msg/WaypointSet.msg
-/home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/msg/_WaypointSet.py: /home/zane/robot_fish/src/uuv_simulator/uuv_control/uuv_control_msgs/msg/Waypoint.msg
-/home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/msg/_WaypointSet.py: /opt/ros/noetic/share/std_msgs/msg/Header.msg
-/home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/msg/_WaypointSet.py: /opt/ros/noetic/share/std_msgs/msg/Time.msg
 /home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/msg/_WaypointSet.py: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
+/home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/msg/_WaypointSet.py: /opt/ros/noetic/share/std_msgs/msg/Time.msg
+/home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/msg/_WaypointSet.py: /opt/ros/noetic/share/std_msgs/msg/Header.msg
+/home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/msg/_WaypointSet.py: /home/zane/robot_fish/src/uuv_simulator/uuv_control/uuv_control_msgs/msg/Waypoint.msg
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/zane/robot_fish/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Generating Python from MSG uuv_control_msgs/WaypointSet"
 	cd /home/zane/robot_fish/build/uuv_simulator/uuv_control/uuv_control_msgs && ../../../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py /home/zane/robot_fish/src/uuv_simulator/uuv_control/uuv_control_msgs/msg/WaypointSet.msg -Iuuv_control_msgs:/home/zane/robot_fish/src/uuv_simulator/uuv_control/uuv_control_msgs/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -p uuv_control_msgs -o /home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/msg
 
 /home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/srv/_AddWaypoint.py: /opt/ros/noetic/lib/genpy/gensrv_py.py
 /home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/srv/_AddWaypoint.py: /home/zane/robot_fish/src/uuv_simulator/uuv_control/uuv_control_msgs/srv/AddWaypoint.srv
-/home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/srv/_AddWaypoint.py: /home/zane/robot_fish/src/uuv_simulator/uuv_control/uuv_control_msgs/msg/Waypoint.msg
-/home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/srv/_AddWaypoint.py: /opt/ros/noetic/share/std_msgs/msg/Header.msg
 /home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/srv/_AddWaypoint.py: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
+/home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/srv/_AddWaypoint.py: /opt/ros/noetic/share/std_msgs/msg/Header.msg
+/home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/srv/_AddWaypoint.py: /home/zane/robot_fish/src/uuv_simulator/uuv_control/uuv_control_msgs/msg/Waypoint.msg
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/zane/robot_fish/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Generating Python code from SRV uuv_control_msgs/AddWaypoint"
 	cd /home/zane/robot_fish/build/uuv_simulator/uuv_control/uuv_control_msgs && ../../../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genpy/cmake/../../../lib/genpy/gensrv_py.py /home/zane/robot_fish/src/uuv_simulator/uuv_control/uuv_control_msgs/srv/AddWaypoint.srv -Iuuv_control_msgs:/home/zane/robot_fish/src/uuv_simulator/uuv_control/uuv_control_msgs/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -p uuv_control_msgs -o /home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/srv
 
@@ -139,15 +139,15 @@ uuv_simulator/uuv_control/uuv_control_msgs/CMakeFiles/uuv_control_msgs_generate_
 
 /home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/srv/_InitCircularTrajectory.py: /opt/ros/noetic/lib/genpy/gensrv_py.py
 /home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/srv/_InitCircularTrajectory.py: /home/zane/robot_fish/src/uuv_simulator/uuv_control/uuv_control_msgs/srv/InitCircularTrajectory.srv
-/home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/srv/_InitCircularTrajectory.py: /opt/ros/noetic/share/std_msgs/msg/Time.msg
 /home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/srv/_InitCircularTrajectory.py: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
+/home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/srv/_InitCircularTrajectory.py: /opt/ros/noetic/share/std_msgs/msg/Time.msg
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/zane/robot_fish/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Generating Python code from SRV uuv_control_msgs/InitCircularTrajectory"
 	cd /home/zane/robot_fish/build/uuv_simulator/uuv_control/uuv_control_msgs && ../../../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genpy/cmake/../../../lib/genpy/gensrv_py.py /home/zane/robot_fish/src/uuv_simulator/uuv_control/uuv_control_msgs/srv/InitCircularTrajectory.srv -Iuuv_control_msgs:/home/zane/robot_fish/src/uuv_simulator/uuv_control/uuv_control_msgs/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -p uuv_control_msgs -o /home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/srv
 
 /home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/srv/_InitHelicalTrajectory.py: /opt/ros/noetic/lib/genpy/gensrv_py.py
 /home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/srv/_InitHelicalTrajectory.py: /home/zane/robot_fish/src/uuv_simulator/uuv_control/uuv_control_msgs/srv/InitHelicalTrajectory.srv
-/home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/srv/_InitHelicalTrajectory.py: /opt/ros/noetic/share/std_msgs/msg/Time.msg
 /home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/srv/_InitHelicalTrajectory.py: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
+/home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/srv/_InitHelicalTrajectory.py: /opt/ros/noetic/share/std_msgs/msg/Time.msg
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/zane/robot_fish/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Generating Python code from SRV uuv_control_msgs/InitHelicalTrajectory"
 	cd /home/zane/robot_fish/build/uuv_simulator/uuv_control/uuv_control_msgs && ../../../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genpy/cmake/../../../lib/genpy/gensrv_py.py /home/zane/robot_fish/src/uuv_simulator/uuv_control/uuv_control_msgs/srv/InitHelicalTrajectory.srv -Iuuv_control_msgs:/home/zane/robot_fish/src/uuv_simulator/uuv_control/uuv_control_msgs/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -p uuv_control_msgs -o /home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/srv
 
@@ -160,17 +160,17 @@ uuv_simulator/uuv_control/uuv_control_msgs/CMakeFiles/uuv_control_msgs_generate_
 
 /home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/srv/_GetWaypoints.py: /opt/ros/noetic/lib/genpy/gensrv_py.py
 /home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/srv/_GetWaypoints.py: /home/zane/robot_fish/src/uuv_simulator/uuv_control/uuv_control_msgs/srv/GetWaypoints.srv
-/home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/srv/_GetWaypoints.py: /home/zane/robot_fish/src/uuv_simulator/uuv_control/uuv_control_msgs/msg/Waypoint.msg
-/home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/srv/_GetWaypoints.py: /opt/ros/noetic/share/std_msgs/msg/Header.msg
 /home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/srv/_GetWaypoints.py: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
+/home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/srv/_GetWaypoints.py: /opt/ros/noetic/share/std_msgs/msg/Header.msg
+/home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/srv/_GetWaypoints.py: /home/zane/robot_fish/src/uuv_simulator/uuv_control/uuv_control_msgs/msg/Waypoint.msg
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/zane/robot_fish/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Generating Python code from SRV uuv_control_msgs/GetWaypoints"
 	cd /home/zane/robot_fish/build/uuv_simulator/uuv_control/uuv_control_msgs && ../../../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genpy/cmake/../../../lib/genpy/gensrv_py.py /home/zane/robot_fish/src/uuv_simulator/uuv_control/uuv_control_msgs/srv/GetWaypoints.srv -Iuuv_control_msgs:/home/zane/robot_fish/src/uuv_simulator/uuv_control/uuv_control_msgs/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -p uuv_control_msgs -o /home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/srv
 
 /home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/srv/_GoTo.py: /opt/ros/noetic/lib/genpy/gensrv_py.py
 /home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/srv/_GoTo.py: /home/zane/robot_fish/src/uuv_simulator/uuv_control/uuv_control_msgs/srv/GoTo.srv
-/home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/srv/_GoTo.py: /home/zane/robot_fish/src/uuv_simulator/uuv_control/uuv_control_msgs/msg/Waypoint.msg
-/home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/srv/_GoTo.py: /opt/ros/noetic/share/std_msgs/msg/Header.msg
 /home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/srv/_GoTo.py: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
+/home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/srv/_GoTo.py: /opt/ros/noetic/share/std_msgs/msg/Header.msg
+/home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/srv/_GoTo.py: /home/zane/robot_fish/src/uuv_simulator/uuv_control/uuv_control_msgs/msg/Waypoint.msg
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/zane/robot_fish/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Generating Python code from SRV uuv_control_msgs/GoTo"
 	cd /home/zane/robot_fish/build/uuv_simulator/uuv_control/uuv_control_msgs && ../../../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genpy/cmake/../../../lib/genpy/gensrv_py.py /home/zane/robot_fish/src/uuv_simulator/uuv_control/uuv_control_msgs/srv/GoTo.srv -Iuuv_control_msgs:/home/zane/robot_fish/src/uuv_simulator/uuv_control/uuv_control_msgs/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -p uuv_control_msgs -o /home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/srv
 
@@ -192,18 +192,18 @@ uuv_simulator/uuv_control/uuv_control_msgs/CMakeFiles/uuv_control_msgs_generate_
 
 /home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/srv/_InitWaypointSet.py: /opt/ros/noetic/lib/genpy/gensrv_py.py
 /home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/srv/_InitWaypointSet.py: /home/zane/robot_fish/src/uuv_simulator/uuv_control/uuv_control_msgs/srv/InitWaypointSet.srv
+/home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/srv/_InitWaypointSet.py: /opt/ros/noetic/share/std_msgs/msg/Time.msg
+/home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/srv/_InitWaypointSet.py: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
 /home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/srv/_InitWaypointSet.py: /home/zane/robot_fish/src/uuv_simulator/uuv_control/uuv_control_msgs/msg/Waypoint.msg
 /home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/srv/_InitWaypointSet.py: /opt/ros/noetic/share/std_msgs/msg/Header.msg
-/home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/srv/_InitWaypointSet.py: /opt/ros/noetic/share/std_msgs/msg/Time.msg
 /home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/srv/_InitWaypointSet.py: /opt/ros/noetic/share/std_msgs/msg/String.msg
-/home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/srv/_InitWaypointSet.py: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/zane/robot_fish/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Generating Python code from SRV uuv_control_msgs/InitWaypointSet"
 	cd /home/zane/robot_fish/build/uuv_simulator/uuv_control/uuv_control_msgs && ../../../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genpy/cmake/../../../lib/genpy/gensrv_py.py /home/zane/robot_fish/src/uuv_simulator/uuv_control/uuv_control_msgs/srv/InitWaypointSet.srv -Iuuv_control_msgs:/home/zane/robot_fish/src/uuv_simulator/uuv_control/uuv_control_msgs/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -p uuv_control_msgs -o /home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/srv
 
 /home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/srv/_InitRectTrajectory.py: /opt/ros/noetic/lib/genpy/gensrv_py.py
 /home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/srv/_InitRectTrajectory.py: /home/zane/robot_fish/src/uuv_simulator/uuv_control/uuv_control_msgs/srv/InitRectTrajectory.srv
-/home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/srv/_InitRectTrajectory.py: /opt/ros/noetic/share/std_msgs/msg/Time.msg
 /home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/srv/_InitRectTrajectory.py: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
+/home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/srv/_InitRectTrajectory.py: /opt/ros/noetic/share/std_msgs/msg/Time.msg
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/zane/robot_fish/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Generating Python code from SRV uuv_control_msgs/InitRectTrajectory"
 	cd /home/zane/robot_fish/build/uuv_simulator/uuv_control/uuv_control_msgs && ../../../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genpy/cmake/../../../lib/genpy/gensrv_py.py /home/zane/robot_fish/src/uuv_simulator/uuv_control/uuv_control_msgs/srv/InitRectTrajectory.srv -Iuuv_control_msgs:/home/zane/robot_fish/src/uuv_simulator/uuv_control/uuv_control_msgs/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -p uuv_control_msgs -o /home/zane/robot_fish/devel/lib/python3/dist-packages/uuv_control_msgs/srv
 

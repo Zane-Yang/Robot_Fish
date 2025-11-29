@@ -1,4 +1,4 @@
-shark_test_description文件夹能正常使用，加载机器鱼到gazebo环境里面
+shark_test_description文件夹能正常使用，加载机器鱼到gazebo环境里面，且
 
 # launch文件夹：启动必要的进程
 （1）解析参数：读取模型spawn位置等
@@ -28,5 +28,11 @@ shark_test_description文件夹能正常使用，加载机器鱼到gazebo环境�
 （2）发布TF变换：确定每个连杆相对世界坐标系的位置
 （3）提供控制接口：推进器/鳍的输入话题，接收控制指令并驱动模型运动
 
+# scripts脚本
+（1）tail_swing.py文件:通过发布/shark_test/fins/0/input实现尾鳍和胸鳍的摆动
+
 # 特殊说明
-这个测试实例的尾鳍是串联的。
+（1）这个测试实例的尾鳍是串联的。
+
+
+11.29更新：能在uuv_simulator水下环境中正常加载机器鱼模型，tail_swing.py脚本话题发布正常，但机器鱼不能与水下环境交互，只能受重力影响自然下沉。

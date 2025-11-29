@@ -527,14 +527,6 @@
 /home/zane/robot_fish/build/uuv_simulator/uuv_world_plugins/uuv_world_ros_plugins/CMakeFiles/uuv_sc_ros_interface_plugin.dir
 /home/zane/robot_fish/build/uuv_simulator/uuv_world_plugins/uuv_world_ros_plugins/CMakeFiles/install/strip.dir
 /home/zane/robot_fish/build/uuv_simulator/uuv_world_plugins/uuv_world_ros_plugins/CMakeFiles/uuv_underwater_current_ros_plugin.dir
-/home/zane/robot_fish/build/uuv_simulator/shark_description/CMakeFiles/install/strip.dir
-/home/zane/robot_fish/build/uuv_simulator/shark_description/CMakeFiles/install/local.dir
-/home/zane/robot_fish/build/uuv_simulator/shark_description/CMakeFiles/install.dir
-/home/zane/robot_fish/build/uuv_simulator/shark_description/CMakeFiles/list_install_components.dir
-/home/zane/robot_fish/build/uuv_simulator/shark_description/CMakeFiles/rebuild_cache.dir
-/home/zane/robot_fish/build/uuv_simulator/shark_description/CMakeFiles/edit_cache.dir
-/home/zane/robot_fish/build/uuv_simulator/shark_description/CMakeFiles/test.dir
-/home/zane/robot_fish/build/uuv_simulator/shark_description/CMakeFiles/shark_description_xacro_generated_to_devel_space_.dir
 /home/zane/robot_fish/build/uuv_simulator/uuv_descriptions/CMakeFiles/install/strip.dir
 /home/zane/robot_fish/build/uuv_simulator/uuv_descriptions/CMakeFiles/install/local.dir
 /home/zane/robot_fish/build/uuv_simulator/uuv_descriptions/CMakeFiles/uuv_descriptions_xacro_generated_to_devel_space_.dir

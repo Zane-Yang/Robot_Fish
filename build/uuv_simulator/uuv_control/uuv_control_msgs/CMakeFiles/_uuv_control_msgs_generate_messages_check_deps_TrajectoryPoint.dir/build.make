@@ -54,7 +54,7 @@ CMAKE_BINARY_DIR = /home/zane/robot_fish/build
 include uuv_simulator/uuv_control/uuv_control_msgs/CMakeFiles/_uuv_control_msgs_generate_messages_check_deps_TrajectoryPoint.dir/progress.make
 
 uuv_simulator/uuv_control/uuv_control_msgs/CMakeFiles/_uuv_control_msgs_generate_messages_check_deps_TrajectoryPoint:
-	cd /home/zane/robot_fish/build/uuv_simulator/uuv_control/uuv_control_msgs && ../../../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genmsg/cmake/../../../lib/genmsg/genmsg_check_deps.py uuv_control_msgs /home/zane/robot_fish/src/uuv_simulator/uuv_control/uuv_control_msgs/msg/TrajectoryPoint.msg std_msgs/Header:geometry_msgs/Accel:geometry_msgs/Quaternion:geometry_msgs/Twist:geometry_msgs/Vector3:geometry_msgs/Pose:geometry_msgs/Point
+	cd /home/zane/robot_fish/build/uuv_simulator/uuv_control/uuv_control_msgs && ../../../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genmsg/cmake/../../../lib/genmsg/genmsg_check_deps.py uuv_control_msgs /home/zane/robot_fish/src/uuv_simulator/uuv_control/uuv_control_msgs/msg/TrajectoryPoint.msg geometry_msgs/Point:std_msgs/Header:geometry_msgs/Vector3:geometry_msgs/Quaternion:geometry_msgs/Twist:geometry_msgs/Accel:geometry_msgs/Pose
 
 _uuv_control_msgs_generate_messages_check_deps_TrajectoryPoint: uuv_simulator/uuv_control/uuv_control_msgs/CMakeFiles/_uuv_control_msgs_generate_messages_check_deps_TrajectoryPoint
 _uuv_control_msgs_generate_messages_check_deps_TrajectoryPoint: uuv_simulator/uuv_control/uuv_control_msgs/CMakeFiles/_uuv_control_msgs_generate_messages_check_deps_TrajectoryPoint.dir/build.make

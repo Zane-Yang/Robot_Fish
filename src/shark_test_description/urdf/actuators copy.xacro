@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <!-- 基于base.xacro的位置参数，调整鳍宏的origin和参数 -->
+    
+    <!-- 1. 胸鳍（body_fin）：匹配base.xacro的body_fin_joint -->
+    <xacro:fin_macro 
+        namespace="${namespace}" 
+        fin_id="0" 
+        parent_link="${namespace}/base_link" 
+        mesh_file="package://shark_test_description/meshes/body_fin.STL"
+        lower_limit="-0.52"        
+        upper_limit="0.52" 
+        effort="0"                 
+        velocity="0" 
+        axis="0 1 0">              <!-- 修正：参数写法正确，无多余符号 -->
+        <origin xyz="0 0 0" rpy="0 0 0" />  <!-- 匹配base的origin -->
+    </xacro:fin_macro>
+
+    <!-- 2. 尾鳍link1：匹配base.xacro的joint1 -->
+    <xacro:fin_macro 
+        namespace="${namespace}" 
+        fin_id="1" 
+        parent_link="${namespace}/base_link" 
+        mesh_file="package://shark_test_description/meshes/link1.STL"
+        lower_limit="-0.54777"     
+        upper_limit="0.54777" 
+        effort="5.0"               
+        velocity="2.0" 
+        axis="0 0 1">              <!-- 匹配base的关节轴 -->
+        <origin xyz="0.16952 -0.001 0.022" rpy="0 0 0" />  <!-- 匹配base的origin -->
+    </xacro:fin_macro>
+
+    <!-- 3. 尾鳍link2：匹配base.xacro的joint2 -->
+    <xacro:fin_macro 
+        namespace="${namespace}" 
+        fin_id="2" 
+        parent_link="${namespace}/fin1"  
+        mesh_file="package://shark_test_description/meshes/link2.STL"
+        lower_limit="-0.5242"      
+        upper_limit="0.5242" 
+        effort="5.0"               
+        velocity="2.0" 
+        axis="0 0 -1">             <!-- 匹配base的关节轴 -->
+        <origin xyz="0.06502 0 0" rpy="0 0 0" />  <!-- 匹配base的origin -->
+    </xacro:fin_macro>
+
+    <!-- 4. 尾鳍link3：匹配base.xacro的joint3 -->
+    <xacro:fin_macro 
+        namespace="${namespace}" 
+        fin_id="3" 
+        parent_link="${namespace}/fin2"  
+        mesh_file="package://shark_test_description/meshes/link3.STL"
+        lower_limit="-0.424"       
+        upper_limit="0.424" 
+        effort="4.0"               
+        velocity="1.5" 
+        axis="0 0 1">              <!-- 匹配base的关节轴 -->
+        <origin xyz="0.06402 0 0" rpy="0 0 0" />  <!-- 匹配base的origin -->
+    </xacro:fin_macro>
+
+    <!-- 5. 尾鳍link4（尾鳍）：匹配base.xacro的joint4 -->
+    <xacro:fin_macro 
+        namespace="${namespace}" 
+        fin_id="4" 
+        parent_link="${namespace}/fin3"  
+        mesh_file="package://shark_test_description/meshes/link4.STL"
+        lower_limit="-0.265"       
+        upper_limit="0.265" 
+        effort="2.0"               
+        velocity="1.0" 
+        axis="0 0 -1">             <!-- 匹配base的关节轴 -->
+        <origin xyz="0.0668 0 0" rpy="0 0 0" />  <!-- 匹配base的origin -->
+    </xacro:fin_macro>
+</robot>

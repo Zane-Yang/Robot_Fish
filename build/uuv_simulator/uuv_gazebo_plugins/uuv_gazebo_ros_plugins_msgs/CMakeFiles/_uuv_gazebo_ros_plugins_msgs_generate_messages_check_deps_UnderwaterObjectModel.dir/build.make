@@ -54,7 +54,7 @@ CMAKE_BINARY_DIR = /home/zane/robot_fish/build
 include uuv_simulator/uuv_gazebo_plugins/uuv_gazebo_ros_plugins_msgs/CMakeFiles/_uuv_gazebo_ros_plugins_msgs_generate_messages_check_deps_UnderwaterObjectModel.dir/progress.make
 
 uuv_simulator/uuv_gazebo_plugins/uuv_gazebo_ros_plugins_msgs/CMakeFiles/_uuv_gazebo_ros_plugins_msgs_generate_messages_check_deps_UnderwaterObjectModel:
-	cd /home/zane/robot_fish/build/uuv_simulator/uuv_gazebo_plugins/uuv_gazebo_ros_plugins_msgs && ../../../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genmsg/cmake/../../../lib/genmsg/genmsg_check_deps.py uuv_gazebo_ros_plugins_msgs /home/zane/robot_fish/src/uuv_simulator/uuv_gazebo_plugins/uuv_gazebo_ros_plugins_msgs/msg/UnderwaterObjectModel.msg geometry_msgs/Inertia:geometry_msgs/Vector3
+	cd /home/zane/robot_fish/build/uuv_simulator/uuv_gazebo_plugins/uuv_gazebo_ros_plugins_msgs && ../../../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genmsg/cmake/../../../lib/genmsg/genmsg_check_deps.py uuv_gazebo_ros_plugins_msgs /home/zane/robot_fish/src/uuv_simulator/uuv_gazebo_plugins/uuv_gazebo_ros_plugins_msgs/msg/UnderwaterObjectModel.msg geometry_msgs/Vector3:geometry_msgs/Inertia
 
 _uuv_gazebo_ros_plugins_msgs_generate_messages_check_deps_UnderwaterObjectModel: uuv_simulator/uuv_gazebo_plugins/uuv_gazebo_ros_plugins_msgs/CMakeFiles/_uuv_gazebo_ros_plugins_msgs_generate_messages_check_deps_UnderwaterObjectModel
 _uuv_gazebo_ros_plugins_msgs_generate_messages_check_deps_UnderwaterObjectModel: uuv_simulator/uuv_gazebo_plugins/uuv_gazebo_ros_plugins_msgs/CMakeFiles/_uuv_gazebo_ros_plugins_msgs_generate_messages_check_deps_UnderwaterObjectModel.dir/build.make

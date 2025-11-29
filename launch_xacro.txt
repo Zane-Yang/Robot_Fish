@@ -1,0 +1,542 @@
+项目文件地址链接为：
+https://github.com/Zane-Yang/Robot_Fish
+
+其中的shark_asm03文件夹、cabin_auv_simulation文件夹和robot_shark_description文件夹可以忽略
+下面是你可能无法查看的一些文件的内容：
+
+
+shark_test_description文件夹下的内容：
+launch文件：
+upload.launch:
+<launch>
+  <!-- Debug flag -->
+  <arg name="debug" default="0"/>
+
+  <!-- Vehicle's initial pose -->
+  <arg name="x"     default="0"/>
+  <arg name="y"     default="0"/>
+  <arg name="z"     default="0.5"/>
+  <arg name="roll"  default="0"/>
+  <arg name="pitch" default="0"/>
+  <arg name="yaw"   default="0"/>
+
+  <arg name="use_geodetic" default="false"/>
+  <arg name="latitude" default="0"/>
+  <arg name="longitude" default="0"/>
+  <arg name="depth" default="0"/>
+
+  <arg name="latitude_ref" default="0"/>
+  <arg name="longitude_ref" default="0"/>
+  <arg name="altitude_ref" default="0"/>
+
+  <!-- Mode to open different robot configurations as set the in file
+  nomenclature standard for the files in /robots
+
+  /robots/<mode>.xacro
+  -->
+  <arg name="mode" default="default"/>
+
+  <!-- Vehicle's namespace -->
+  <arg name="namespace" default="shark_test"/>
+
+  <arg name="world_frame" default="world"/>
+  
+  <include file="$(find uuv_gazebo_worlds)/launch/ocean_waves.launch">
+  </include>
+
+  <group ns="$(arg namespace)">
+    <param name="robot_description"
+           command="$(find xacro)/xacro '$(find shark_test_description)/robots/$(arg mode).xacro' debug:=$(arg debug) namespace:=$(arg namespace)" />
+    
+    <!-- Run a python script to the send a service call to gazebo_ros to spawn a URDF robot -->
+    <group if="$(arg use_geodetic)">
+      <node name="urdf_spawner" pkg="uuv_descriptions" type="spawn_model" respawn="false" output="screen"
+            args="-urdf -latitude $(arg latitude) -longitude $(arg longitude) -depth $(arg depth) -latitude_ref $(arg latitude_ref) -longitude_ref $(arg longitude_ref) -altitude_ref $(arg altitude_ref) -R $(arg roll) -P $(arg pitch) -Y $(arg yaw) -model $(arg namespace) -param /$(arg namespace)/robot_description"/>
+    </group>
+
+    <group unless="$(arg use_geodetic)">
+      <node name="urdf_spawner" pkg="uuv_descriptions" type="spawn_model" respawn="false" output="screen"
+            args="-urdf -x $(arg x) -y $(arg y) -z $(arg z) -R $(arg roll) -P $(arg pitch) -Y $(arg yaw) -model $(arg namespace) -param /$(arg namespace)/robot_description"/>
+    </group>
+
+    <!-- A joint state publisher plugin already is started with the model, no need to use the default joint state publisher -->
+
+    <!-- Publish robot model for ROS -->
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="true" output="screen">
+      <param name="robot_description" value="/$(arg namespace)/robot_description" />
+    </node>
+  </group>
+
+  <!-- Publish state and tf for in relation to the world frame -->
+  <include file="$(find uuv_assistants)/launch/message_to_tf.launch">
+    	<arg name="namespace" value="$(arg namespace)"/>
+  </include>
+
+</launch>
+
+
+robots文件夹：
+default.xacro文件：
+<?xml version="1.0"?>
+<robot name="shark_test" xmlns:xacro="http://www.ros.org/wiki/xacro" >
+  <xacro:arg name="debug" default="0"/>
+  <xacro:arg name="namespace" default="shark_test"/>
+  <!-- Include the ROV macro file -->
+  <xacro:include filename="$(find shark_test_description)/urdf/base.xacro"/>
+  <xacro:include filename="$(find shark_test_description)/urdf/gazebo.xacro"/>
+
+  <!-- Create the shark_test -->
+  <xacro:shark_test_base namespace="$(arg namespace)">
+    <!-- The underwater object plugin is given as an input block parameter to
+     allow the addition of external models of manipulator units -->
+    <gazebo>
+      <plugin name="uuv_plugin" filename="libuuv_underwater_object_ros_plugin.so">
+        <fluid_density>1028.0</fluid_density>
+        <flow_velocity_topic>hydrodynamics/current_velocity</flow_velocity_topic>
+        <debug>$(arg debug)</debug>
+        <!-- Adding the hydrodynamic and hydrostatic parameters for the vehicle-->
+        <xacro:shark_test_hydro_model namespace="$(arg namespace)"/>
+        <!--
+          In case other modules are added to the vehicle (such as a manipulator)
+          that also have link running with the underwater object plugin, they
+          should also be added in this block. For this, this new module should
+          have a file similar to gazebo.xacro above with the description of the
+          parameter necessary for the underwater object plugin to be initialized.
+        -->
+      </plugin>
+    </gazebo>
+  </xacro:shark_test_base>
+
+  <!-- Joint state publisher plugin -->
+  <xacro:default_joint_state_publisher namespace="$(arg namespace)" update_rate="10"/>
+
+</robot>
+
+
+urdf文件夹：
+actuators.xacro文件:
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <!-- 基于base.xacro的位置参数，调整鳍宏的origin和参数 -->
+    
+    <!-- 1. 胸鳍（body_fin）：匹配base.xacro的body_fin_joint -->
+    <xacro:fin_macro 
+        namespace="${namespace}" 
+        fin_id="0" 
+        parent_link="${namespace}/base_link" 
+        mesh_file="package://shark_test_description/meshes/body_fin.STL"
+        lower_limit="-0.52"        
+        upper_limit="0.52" 
+        effort="0"                 
+        velocity="0" 
+        axis="0 1 0">              <!-- 修正：参数写法正确，无多余符号 -->
+        <origin xyz="0 0 0" rpy="0 0 0" />  <!-- 匹配base的origin -->
+    </xacro:fin_macro>
+
+    <!-- 2. 尾鳍link1：匹配base.xacro的joint1 -->
+    <xacro:fin_macro 
+        namespace="${namespace}" 
+        fin_id="1" 
+        parent_link="${namespace}/base_link" 
+        mesh_file="package://shark_test_description/meshes/link1.STL"
+        lower_limit="-0.54777"     
+        upper_limit="0.54777" 
+        effort="5.0"               
+        velocity="2.0" 
+        axis="0 0 1">              <!-- 匹配base的关节轴 -->
+        <origin xyz="0.16952 -0.001 0.022" rpy="0 0 0" />  <!-- 匹配base的origin -->
+    </xacro:fin_macro>
+
+    <!-- 3. 尾鳍link2：匹配base.xacro的joint2 -->
+    <xacro:fin_macro 
+        namespace="${namespace}" 
+        fin_id="2" 
+        parent_link="${namespace}/fin1"  
+        mesh_file="package://shark_test_description/meshes/link2.STL"
+        lower_limit="-0.5242"      
+        upper_limit="0.5242" 
+        effort="5.0"               
+        velocity="2.0" 
+        axis="0 0 -1">             <!-- 匹配base的关节轴 -->
+        <origin xyz="0.06502 0 0" rpy="0 0 0" />  <!-- 匹配base的origin -->
+    </xacro:fin_macro>
+
+    <!-- 4. 尾鳍link3：匹配base.xacro的joint3 -->
+    <xacro:fin_macro 
+        namespace="${namespace}" 
+        fin_id="3" 
+        parent_link="${namespace}/fin2"  
+        mesh_file="package://shark_test_description/meshes/link3.STL"
+        lower_limit="-0.424"       
+        upper_limit="0.424" 
+        effort="4.0"               
+        velocity="1.5" 
+        axis="0 0 1">              <!-- 匹配base的关节轴 -->
+        <origin xyz="0.06402 0 0" rpy="0 0 0" />  <!-- 匹配base的origin -->
+    </xacro:fin_macro>
+
+    <!-- 5. 尾鳍link4（尾鳍）：匹配base.xacro的joint4 -->
+    <xacro:fin_macro 
+        namespace="${namespace}" 
+        fin_id="4" 
+        parent_link="${namespace}/fin3"  
+        mesh_file="package://shark_test_description/meshes/link4.STL"
+        lower_limit="-0.265"       
+        upper_limit="0.265" 
+        effort="2.0"               
+        velocity="1.0" 
+        axis="0 0 -1">             <!-- 匹配base的关节轴 -->
+        <origin xyz="0.0668 0 0" rpy="0 0 0" />  <!-- 匹配base的origin -->
+    </xacro:fin_macro>
+</robot>
+
+
+base.xacro文件：
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <!-- Loading some constants -->
+  <xacro:include filename="$(find uuv_descriptions)/urdf/common.urdf.xacro"/>
+  <!-- Loading file with sensor macros -->
+  <xacro:include filename="$(find uuv_sensor_ros_plugins)/urdf/sensor_snippets.xacro"/>
+  <!-- Loading the UUV simulator ROS plugin macros -->
+  <xacro:include filename="$(find uuv_gazebo_ros_plugins)/urdf/snippets.xacro"/>  
+  <!-- Loading vehicle's specific macros -->
+  <xacro:include filename="$(find shark_test_description)/urdf/snippets.xacro"/>
+
+  
+
+  <!--
+    Vehicle's parameters (remember to enter the model parameters below)
+  -->
+
+  
+
+  <xacro:property name="mass" value="3.473"/>
+  <!-- Center of gravity -->
+  <xacro:property name="cog" value="0.038191 -0.0011682 0.019734"/>
+  <!-- Fluid density -->
+  <xacro:property name="rho" value="1028"/>
+
+  <!-- 网格文件路径 -->
+  <xacro:property name="base_link_mesh" value="package://shark_test_description/meshes/base_link.STL"/>
+  
+  <xacro:macro name="shark_test_base" params="namespace *gazebo">
+    <!-- 1. 基础连杆 base_link（复用原有惯性、可视化、碰撞） -->
+    <!-- 在URDF中添加虚拟根连杆 -->
+    <link name="dummy_root" />
+    <joint name="dummy_joint" type="fixed">
+      <parent link="dummy_root" />
+      <child link="${namespace}/base_link" />
+    </joint>
+
+
+    <link name="${namespace}/base_link">
+      <inertial>
+        <mass value="1.753" />
+        <origin xyz="0.038191 -0.0011682 0.019734" rpy="0 0 0"/>
+        <inertia ixx="0.0011992" ixy="-5.9532E-07" ixz="-4.094E-05"
+                 iyy="0.0049871" iyz="-7.025E-07" izz="0.0055025" />
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="${base_link_mesh}" scale="1 1 1" />
+        </geometry>
+        <material name="white"><color rgba="1 1 1 1" /></material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="${base_link_mesh}" scale="1 1 1" />
+        </geometry>
+      </collision>
+    </link>
+    
+
+    <!-- Gazebo 自碰撞设置 -->
+    <gazebo reference="${namespace}/base_link">
+      <selfCollide>false</selfCollide>
+    </gazebo>
+    
+
+    <!-- 插入流体动力学插件 -->
+    <xacro:insert_block name="gazebo"/>
+
+                <!-- 绑定水动力插件到base_link -->
+    <gazebo reference="${namespace}/base_link">
+        <plugin name="underwater_object_plugin" filename="libuuv_underwater_object_plugin.so">
+            <link_name>${namespace}/base_link</link_name>
+            <fluid_density>${rho}</fluid_density>
+            <use_global_current>true</use_global_current>
+            <current_velocity_topic>/hydrodynamics/current_velocity</current_velocity_topic>
+            
+            <!-- 直接硬编码参数，避免作用域问题 -->
+            <volume>0.0017</volume>  <!-- 浮力平衡体积 -->
+            <center_of_buoyancy>0.038191 -0.0011682 0.029734</center_of_buoyancy>
+            
+            <!-- bounding box -->
+            <bounding_box>
+                <length>0.65</length>
+                <width>0.32</width>
+                <height>0.25</height>
+            </bounding_box>
+
+            <!-- 水动力模型参数 -->
+            <hydrodynamic_model>
+                <type>fossen</type>
+                <added_mass>
+                    0.1 0 0 0 0 0
+                    0 0.05 0 0 0 0
+                    0 0 0.05 0 0 0
+                    0 0 0 0.001 0 0
+                    0 0 0 0 0.001 0
+                    0 0 0 0 0 0.001
+                </added_mass>
+                <linear_damping>10 6 6 1.0 1.0 1.0</linear_damping>
+                <quadratic_damping>200 150 150 50 50 50</quadratic_damping>  <!-- 增大阻尼 -->
+            </hydrodynamic_model>
+        </plugin>
+    </gazebo>
+
+
+
+    <!-- 包含执行器（推进器、鳍）和传感器 -->
+    <xacro:include filename="$(find shark_test_description)/urdf/actuators.xacro"/>
+    <xacro:include filename="$(find shark_test_description)/urdf/sensors.xacro"/>
+    </xacro:macro>
+</robot>
+
+
+gazebo.xacro文件：
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <!-- Center of buoyancy -->
+    <xacro:property name="shark_test_cob" value="0.038191 -0.0011682 0.029734"/>
+
+    <!-- Vehicle's actual volume (Gazebo cannot compute the volume out of the mesh) -->
+    <xacro:property name="shark_test_volume" value="0.0017"/>  <!-- 调整为浮力平衡值 -->
+
+    <!-- Describing the dimensions of the vehicle's bounding box -->
+    <xacro:property name="shark_test_length" value="0.65"/>
+    <xacro:property name="shark_test_width"  value="0.32"/>
+    <xacro:property name="shark_test_height" value="0.25"/>
+
+    <xacro:macro name="shark_test_hydro_model" params="namespace">
+        <!-- 移除<link>标签，仅保留水动力参数定义 -->
+        <xacro:property name="namespace" value="${namespace}"/>
+        <xacro:property name="cob" value="${shark_test_cob}"/>
+        <xacro:property name="volume" value="${shark_test_volume}"/>
+        <xacro:property name="length" value="${shark_test_length}"/>
+        <xacro:property name="width" value="${shark_test_width}"/>
+        <xacro:property name="height" value="${shark_test_height}"/>
+
+        <!-- 水动力模型参数（供base.xacro的插件调用） -->
+        <xacro:property name="added_mass" value="0.1 0 0 0 0 0
+            0 0.05 0 0 0 0
+            0 0 0.05 0 0 0
+            0 0 0 0.001 0 0
+            0 0 0 0 0.001 0
+            0 0 0 0 0 0.001"/>
+        <xacro:property name="linear_damping" value="5 3 3 0.5 0.5 0.5"/>
+        <xacro:property name="quadratic_damping" value="50 40 40 10 10 10"/>  <!-- 增大阻尼 -->
+    </xacro:macro>
+
+</robot>
+
+
+sensors.xacro文件（shark_test_description里面暂时没有用什么传感器，均被注释掉了）：
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!--
+    Some examples of sensors that can be added to the vehicle frame.
+    Set the origin of the sensor frames correctly for your application
+    Look into the sensor macros in the package uuv_sensor_ros_plugins/urdf for
+    more examples or add you own custom sensor units.
+  -->
+
+  <!-- Mount a GPS. -->
+  <!-- <xacro:default_gps namespace="${namespace}" parent_link="${namespace}/base_link" /> -->
+
+  <!-- Mount a Pose 3D sensor. -->
+  <!-- <xacro:default_pose_3d namespace="${namespace}" parent_link="${namespace}/base_link" /> -->
+
+  <!-- Forward-looking sonar sensor -->
+  <!-- <xacro:forward_multibeam_p900 namespace="${namespace}" parent_link="${namespace}/base_link">
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </xacro:forward_multibeam_p900> -->
+
+  <!-- DVL  -->
+  <!-- <xacro:default_dvl namespace="${namespace}" parent_link="${namespace}/base_link">
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </xacro:default_dvl> -->
+
+  <!-- RPT  -->
+  <!-- <xacro:default_rpt namespace="${namespace}" parent_link="${namespace}/base_link">
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </xacro:default_rpt> -->
+
+  <!-- Pressure  -->
+  <!-- <xacro:default_pressure namespace="${namespace}" parent_link="${namespace}/base_link">
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </xacro:default_pressure> -->
+
+  <!-- IMU  -->
+  <!-- <xacro:default_imu namespace="${namespace}" parent_link="${namespace}/base_link">
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </xacro:default_imu> -->
+
+  <!-- Mount a camera  -->
+  <!-- <xacro:default_camera namespace="${namespace}" parent_link="${namespace}/base_link" suffix="">
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </xacro:default_camera> -->
+
+
+</robot>
+
+
+snippets.xacro文件：
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- MACRO FOR FIN/RUDDER UNITS  -->
+  <!--
+    This macro can be used to add fins to the body of the vehicle, the fins
+    should be initialized in the actuators.xacro file. If you vehicle has no
+    fins, you can erase the macro below.
+  -->
+
+  <!-- 移除硬编码的鳍限位（改为通过参数传递） -->
+  <!-- <xacro:property name="fin_min_joint_limit" value="${-0.5 * d2r}"/> -->
+  <!-- <xacro:property name="fin_max_joint_limit" value="${0.5 * d2r}"/> -->
+
+  <!-- 宏参数说明：
+       - namespace: 机器人命名空间
+       - fin_id: 鳍的唯一ID
+       - parent_link: 父连杆（默认base_link）
+       - mesh_file: 鳍的网格文件路径（package://格式）
+       - *origin: 关节位置/姿态
+       - axis: 关节旋转轴（新增）
+       - lower_limit: 关节下限（新增）
+       - upper_limit: 关节上限（新增）
+       - effort: 关节最大力（新增）
+       - velocity: 关节最大速度（新增）
+  -->
+  <xacro:macro name="fin_macro" params="namespace fin_id parent_link:=${namespace}/base_link mesh_file *origin axis lower_limit upper_limit effort velocity">
+      <joint name="${namespace}/fin${fin_id}_joint" type="revolute">
+          <!-- 使用传入的限位、effort、velocity参数 -->
+          <limit effort="${effort}" lower="${lower_limit}" upper="${upper_limit}" velocity="${velocity}"/>
+          <xacro:insert_block name="origin"/>
+          <axis xyz="${axis}"/>  <!-- 使用传入的旋转轴参数 -->
+          <parent link="${parent_link}" />
+          <child link="${namespace}/fin${fin_id}" />
+      </joint>
+
+      <link name="${namespace}/fin${fin_id}">
+        <inertial>
+          <mass value="0.01" />  <!-- 增大质量，避免Gazebo中模型漂浮 -->
+          <origin xyz="0 0 0" rpy="0 0 0"/>
+          <inertia ixx="0.0001" ixy="0.0" ixz="0.0"
+                 iyy="0.0001" iyz="0.0"
+                 izz="0.0001" />  <!-- 增大转动惯量，提升物理稳定性 -->
+        </inertial>
+        <visual>
+          <origin xyz="0 0 0" rpy="0 0 0" />
+          <geometry>
+            <mesh filename="${mesh_file}" scale="1 1 1"/>  <!-- 直接使用传入的mesh_file参数 -->
+          </geometry>
+        </visual>
+        <!-- 新增碰撞模型，否则Gazebo中鳍无碰撞体积 -->
+        <collision>
+          <origin xyz="0 0 0" rpy="0 0 0" />
+          <geometry>
+            <mesh filename="${mesh_file}" scale="1 1 1"/>
+          </geometry>
+        </collision>
+      </link>
+
+      <gazebo>
+        <plugin name="${namespace}_fin${fin_id}_model" filename="libuuv_fin_ros_plugin.so">
+          <fin_id>${fin_id}</fin_id>
+          <command_topic>${namespace}/fins/${fin_id}/input</command_topic>
+          <!-- 鳍关节动力学模型：一阶延迟，时间常数0.1秒 -->
+          <dynamics>
+            <type>FirstOrder</type>
+            <timeConstant>0.1</timeConstant>
+          </dynamics>
+
+          <!-- 选择二次升力/阻力模型（更适合仿生鱼鳍） -->
+          <liftdrag>
+            <type>Quadratic</type>
+            <lift_constant>10.0</lift_constant>  <!-- 升力系数，需根据鳍尺寸调整 -->
+            <drag_constant>5.0</drag_constant>    <!-- 阻力系数 -->
+          </liftdrag>
+
+          <!-- 水动力关键参数 -->
+          <current_velocity_topic>/hydrodynamics/current_velocity</current_velocity_topic>
+          <link_name>${namespace}/fin${fin_id}</link_name>
+          <joint_name>${namespace}/fin${fin_id}_joint</joint_name>
+
+          <!-- ROS话题配置 -->
+          <output_topic>${namespace}/fins/${fin_id}/output</output_topic>
+          
+          <wrench_topic>${namespace}/fins/${fin_id}/wrench_topic</wrench_topic>
+        </plugin>
+
+        <!-- 新增流体阻力插件，模拟水对鳍的阻尼（可选启用） -->
+        <!-- <plugin name="${namespace}_fin${fin_id}_hydrodynamics" filename="libuuv_hydrodynamic_plugin.so">
+          <link_name>${namespace}/fin${fin_id}</link_name>
+          <fluid_density>1000</fluid_density>
+          <added_mass>
+            <ixx>0.001</ixx>
+            <iyy>0.001</iyy>
+            <izz>0.001</izz>
+          </added_mass>
+          <linear_damping>
+            <x>1.0</x>
+            <y>1.0</y>
+            <z>1.0</z>
+          </linear_damping>
+        </plugin> -->
+      </gazebo>
+  </xacro:macro>
+
+</robot>
+
+uuv_simulator里面的内容比较多，可以查看他们的官方网站：
+https://uuvsimulator.github.io/packages/uuv_simulator/intro/
+https://uuvsimulator.github.io/packages/uuv_simulator/docs/features/actuators/
+https://uuvsimulator.github.io/packages/uuv_simulator/docs/features/gazebo_worlds/
+https://uuvsimulator.github.io/packages/uuv_simulator/docs/features/path_and_trajectory_generation/
+https://uuvsimulator.github.io/packages/uuv_simulator/docs/features/vscode_snippets/
+https://uuvsimulator.github.io/packages/uuv_simulator/docs/tutorials/config_thruster_manager/
+https://uuvsimulator.github.io/packages/uuv_simulator/docs/tutorials/create_new_vehicle/
+https://uuvsimulator.github.io/packages/uuv_simulator/docs/tutorials/creating_new_dp_controller/
+https://uuvsimulator.github.io/packages/uuv_simulator/docs/tutorials/disturbances/
+https://uuvsimulator.github.io/packages/uuv_simulator/docs/tutorials/seabed_world/
+uuv_simulator的各个package说明：
+https://uuvsimulator.github.io/packages/uuv_simulator/docs/packages/uuv_assistants/
+https://uuvsimulator.github.io/packages/uuv_simulator/docs/packages/uuv_auv_control_allocator/
+https://uuvsimulator.github.io/packages/uuv_simulator/docs/packages/uuv_control_cascaded_pid/
+https://uuvsimulator.github.io/packages/uuv_simulator/docs/packages/uuv_control_msgs/
+https://uuvsimulator.github.io/packages/uuv_simulator/docs/packages/uuv_control_utils/
+https://uuvsimulator.github.io/packages/uuv_simulator/docs/packages/uuv_descriptions/
+https://uuvsimulator.github.io/packages/uuv_simulator/docs/packages/uuv_gazebo_plugins/
+https://uuvsimulator.github.io/packages/uuv_simulator/docs/packages/uuv_gazebo_ros_plugins_msgs/
+https://uuvsimulator.github.io/packages/uuv_simulator/docs/packages/uuv_gazebo_worlds/
+https://uuvsimulator.github.io/packages/uuv_simulator/docs/packages/uuv_teleop/
+https://uuvsimulator.github.io/packages/uuv_simulator/docs/packages/uuv_thruster_manager/
+https://uuvsimulator.github.io/packages/uuv_simulator/docs/packages/uuv_trajectory_control/
+https://uuvsimulator.github.io/packages/uuv_simulator/docs/packages/uuv_world_ros_plugins_msgs/
+
+uuv_simulator里面的Python API
+https://uuvsimulator.github.io/packages/uuv_simulator/docs/python_api/uuv_auv_actuator_interface/
+https://uuvsimulator.github.io/packages/uuv_simulator/docs/python_api/PID/
+https://uuvsimulator.github.io/packages/uuv_simulator/docs/python_api/uuv_thrusters/
+https://uuvsimulator.github.io/packages/uuv_simulator/docs/python_api/uuv_control_interfaces/
+https://uuvsimulator.github.io/packages/uuv_simulator/docs/python_api/uuv_trajectory_generator/
+https://uuvsimulator.github.io/packages/uuv_simulator/docs/python_api/uuv_waypoints/
+
+C++ API
+内容太多了，暂时不列举了。

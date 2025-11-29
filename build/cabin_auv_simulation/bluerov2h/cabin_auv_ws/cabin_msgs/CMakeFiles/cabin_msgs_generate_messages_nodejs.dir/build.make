@@ -127,8 +127,8 @@ cabin_auv_simulation/bluerov2h/cabin_auv_ws/cabin_msgs/CMakeFiles/cabin_msgs_gen
 /home/zane/robot_fish/devel/share/gennodejs/ros/cabin_msgs/msg/Imu.js: /opt/ros/noetic/lib/gennodejs/gen_nodejs.py
 /home/zane/robot_fish/devel/share/gennodejs/ros/cabin_msgs/msg/Imu.js: /home/zane/robot_fish/src/cabin_auv_simulation/bluerov2h/cabin_auv_ws/cabin_msgs/msg/Imu.msg
 /home/zane/robot_fish/devel/share/gennodejs/ros/cabin_msgs/msg/Imu.js: /opt/ros/noetic/share/std_msgs/msg/Header.msg
-/home/zane/robot_fish/devel/share/gennodejs/ros/cabin_msgs/msg/Imu.js: /opt/ros/noetic/share/geometry_msgs/msg/Quaternion.msg
 /home/zane/robot_fish/devel/share/gennodejs/ros/cabin_msgs/msg/Imu.js: /opt/ros/noetic/share/geometry_msgs/msg/Vector3.msg
+/home/zane/robot_fish/devel/share/gennodejs/ros/cabin_msgs/msg/Imu.js: /opt/ros/noetic/share/geometry_msgs/msg/Quaternion.msg
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/zane/robot_fish/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Generating Javascript code from cabin_msgs/Imu.msg"
 	cd /home/zane/robot_fish/build/cabin_auv_simulation/bluerov2h/cabin_auv_ws/cabin_msgs && ../../../../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/zane/robot_fish/src/cabin_auv_simulation/bluerov2h/cabin_auv_ws/cabin_msgs/msg/Imu.msg -Icabin_msgs:/home/zane/robot_fish/src/cabin_auv_simulation/bluerov2h/cabin_auv_ws/cabin_msgs/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -p cabin_msgs -o /home/zane/robot_fish/devel/share/gennodejs/ros/cabin_msgs/msg
 

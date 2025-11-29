@@ -2,33 +2,27 @@
 <robot name="shark_test" xmlns:xacro="http://www.ros.org/wiki/xacro" >
   <xacro:arg name="debug" default="0"/>
   <xacro:arg name="namespace" default="shark_test"/>
-  <!-- Include the ROV macro file -->
-  <xacro:include filename="$(find shark_test_description)/urdf/base.xacro"/>
-  <xacro:include filename="$(find shark_test_description)/urdf/gazebo.xacro"/>
+  <xacro:arg name="inertial_reference_frame" default="world"/>
 
-  <!-- Create the shark_test -->
-  <xacro:shark_test_base namespace="$(arg namespace)">
-    <!-- The underwater object plugin is given as an input block parameter to
-     allow the addition of external models of manipulator units -->
+  <xacro:include filename="$(find shark_test_description)/urdf/base.xacro"/>
+
+  <!-- 创建机器鱼基础模型 -->
+  <xacro:shark_test_base 
+    namespace="$(arg namespace)"
+    inertial_reference_frame="$(arg inertial_reference_frame)">
+        <!-- 水下物体插件 -->
     <gazebo>
       <plugin name="uuv_plugin" filename="libuuv_underwater_object_ros_plugin.so">
+        <link_name>$(arg namespace)/base_link</link_name>  <!-- 使用命名空间变量 -->
         <fluid_density>1028.0</fluid_density>
-        <flow_velocity_topic>hydrodynamics/current_velocity</flow_velocity_topic>
-        <debug>$(arg debug)</debug>
-        <!-- Adding the hydrodynamic and hydrostatic parameters for the vehicle-->
-        <xacro:shark_test_hydro_model namespace="$(arg namespace)"/>
-        <!--
-          In case other modules are added to the vehicle (such as a manipulator)
-          that also have link running with the underwater object plugin, they
-          should also be added in this block. For this, this new module should
-          have a file similar to gazebo.xacro above with the description of the
-          parameter necessary for the underwater object plugin to be initialized.
-        -->
+        <flow_velocity_topic>/hydrodynamics/current_velocity</flow_velocity_topic>
+        <debug>true</debug>
+        <use_global_current>true</use_global_current>
+        <enable_buoyancy_debug>true</enable_buoyancy_debug>
       </plugin>
     </gazebo>
   </xacro:shark_test_base>
 
-  <!-- Joint state publisher plugin -->
-  <xacro:default_joint_state_publisher namespace="$(arg namespace)" update_rate="10"/>
-
+  <!-- 关节状态发布器 -->
+  <xacro:default_joint_state_publisher namespace="$(arg namespace)" update_rate="20"/>
 </robot>

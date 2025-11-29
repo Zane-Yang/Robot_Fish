@@ -22,6 +22,8 @@
   <depend>std_msgs</depend>
   <depend>uuv_gazebo_ros_plugins_msgs</depend>
 
+  <build_depend>catkin</build_depend>
+
   <export>
   </export>
 </package>

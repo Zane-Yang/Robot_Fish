@@ -59,8 +59,8 @@ uuv_simulator/uuv_control/uuv_auv_control_allocator/CMakeFiles/uuv_auv_control_a
 /home/zane/robot_fish/devel/share/gennodejs/ros/uuv_auv_control_allocator/msg/AUVCommand.js: /opt/ros/noetic/lib/gennodejs/gen_nodejs.py
 /home/zane/robot_fish/devel/share/gennodejs/ros/uuv_auv_control_allocator/msg/AUVCommand.js: /home/zane/robot_fish/src/uuv_simulator/uuv_control/uuv_auv_control_allocator/msg/AUVCommand.msg
 /home/zane/robot_fish/devel/share/gennodejs/ros/uuv_auv_control_allocator/msg/AUVCommand.js: /opt/ros/noetic/share/std_msgs/msg/Header.msg
-/home/zane/robot_fish/devel/share/gennodejs/ros/uuv_auv_control_allocator/msg/AUVCommand.js: /opt/ros/noetic/share/geometry_msgs/msg/Vector3.msg
 /home/zane/robot_fish/devel/share/gennodejs/ros/uuv_auv_control_allocator/msg/AUVCommand.js: /opt/ros/noetic/share/geometry_msgs/msg/Wrench.msg
+/home/zane/robot_fish/devel/share/gennodejs/ros/uuv_auv_control_allocator/msg/AUVCommand.js: /opt/ros/noetic/share/geometry_msgs/msg/Vector3.msg
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/zane/robot_fish/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Javascript code from uuv_auv_control_allocator/AUVCommand.msg"
 	cd /home/zane/robot_fish/build/uuv_simulator/uuv_control/uuv_auv_control_allocator && ../../../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/zane/robot_fish/src/uuv_simulator/uuv_control/uuv_auv_control_allocator/msg/AUVCommand.msg -Iuuv_auv_control_allocator:/home/zane/robot_fish/src/uuv_simulator/uuv_control/uuv_auv_control_allocator/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -p uuv_auv_control_allocator -o /home/zane/robot_fish/devel/share/gennodejs/ros/uuv_auv_control_allocator/msg
 

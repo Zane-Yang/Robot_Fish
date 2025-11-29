@@ -52,3 +52,11 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/shark_test_description" TYPE FILE FILES "/home/zane/robot_fish/src/shark_test_description/package.xml")
 endif()
 
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/shark_test_description" TYPE PROGRAM FILES "/home/zane/robot_fish/build/shark_test_description/catkin_generated/installspace/tail_swing.py")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/shark_test_description" TYPE PROGRAM FILES "/home/zane/robot_fish/src/shark_test_description/scripts/tail_swing.py")
+endif()
+
