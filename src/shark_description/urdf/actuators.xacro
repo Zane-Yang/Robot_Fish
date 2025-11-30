@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <!-- Adding the thruster units with the macro created in snippets.xacro -->
+    <!--
+    Important:
+        - The thruster IDs must be given as integers and must be unique to each thruster unit
+        - The thruster pose in the <origin> block is relative to the body's center of mass. Be
+          aware that Gazebo does not use the SNAME convention per default.
+    -->
+
+    <!-- Instantiate fins, if necessary -->
+    <!-- 1. 胸鳍（fin0）：修正effort和velocity，避免锁死 -->
+  <xacro:fin_macro 
+      namespace="${namespace}" 
+      fin_id="0" 
+      parent_link="${namespace}/base_link" 
+      fin_mesh_file="package://shark_description/meshes/body_fin.STL"
+      lower_limit="-1.8"     
+      upper_limit="1.8" 
+      effort="10"  
+      velocity="2.0"  
+      axis="0 1 0"
+      mass="0.78" >  <!-- 绕y轴转动（上下摆动） -->
+      <origin xyz="0 0 0" rpy="0 0 0" />
+  </xacro:fin_macro>
+
+  <!-- 2. 尾鳍link1（fin1）：保留原有参数 -->
+  <xacro:fin_macro 
+      namespace="${namespace}" 
+      fin_id="1" 
+      parent_link="${namespace}/base_link" 
+      fin_mesh_file="package://shark_description/meshes/link1.STL"
+      lower_limit="-0.54777"     
+      upper_limit="0.54777" 
+      effort="10"               
+      velocity="2.0" 
+      axis="0 0 1"
+      mass="0.28">  <!-- 绕z轴转动（左右摆动） -->
+      
+      <origin xyz="0.16952 -0.001 0.022" rpy="0 0 0" />
+  </xacro:fin_macro>
+
+  <!-- 3. 尾鳍link2（fin2）：保留原有参数 -->
+  <xacro:fin_macro 
+      namespace="${namespace}" 
+      fin_id="2" 
+      parent_link="${namespace}/fin1"  
+      fin_mesh_file="package://shark_description/meshes/link2.STL"
+      lower_limit="-1.5242"      
+      upper_limit="1.5242" 
+      effort="5.0"               
+      velocity="2.0" 
+      axis="0 0 -1"
+      mass="0.23" >  <!-- 绕z轴反向转动 -->
+      
+      <origin xyz="0.06502 0 0" rpy="0 0 0" />
+  </xacro:fin_macro>
+
+  <!-- 4. 尾鳍link3（fin3）：保留原有参数 -->
+  <xacro:fin_macro 
+      namespace="${namespace}" 
+      fin_id="3" 
+      parent_link="${namespace}/fin2"  
+      fin_mesh_file="package://shark_description/meshes/link3.STL"
+      lower_limit="-1.424"       
+      upper_limit="1.424" 
+      effort="4.0"               
+      velocity="1.5" 
+      axis="0 0 1"
+      mass="0.19" >
+      <origin xyz="0.06402 0 0" rpy="0 0 0" />
+  </xacro:fin_macro>
+
+  <!-- 5. 尾鳍link4（fin4）：保留原有参数 -->
+  <xacro:fin_macro 
+      namespace="${namespace}" 
+      fin_id="4" 
+      parent_link="${namespace}/fin3"  
+      fin_mesh_file="package://shark_description/meshes/link4.STL"
+      lower_limit="-1.265"       
+      upper_limit="1.265" 
+      effort="5.0"               
+      velocity="1.0" 
+      axis="0 0 -1"
+      mass="0.11" >
+      <origin xyz="0.0668 0 0" rpy="0 0 0" />
+  </xacro:fin_macro>
+
+</robot>
